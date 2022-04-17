@@ -1,4 +1,5 @@
-const String WORKORDER_LIST = 'http://127.0.0.1:8000/api/projectwo';
+const String WORKORDER_LIST =
+    'http://10.0.2.2:40/weekly_api/api/get_weekly.php';
 
 // Success
 const SUCCESS = 200;

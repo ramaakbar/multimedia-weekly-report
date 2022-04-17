@@ -28,6 +28,7 @@ class ReportScreen extends StatelessWidget {
             FilterSelect(
               dropdownValue: 'Select Crew',
               selectList: ['Select Crew', 'Crew 1', 'Crew 2', 'Crew 3'],
+              label: 'Filter',
             ),
             SizedBox(
               height: 10,

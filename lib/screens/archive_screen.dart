@@ -24,6 +24,7 @@ class ArchiveScreen extends StatelessWidget {
             FilterSelect(
               dropdownValue: 'Nama Proyek',
               selectList: ['Nama Proyek', 'Deskripsi Proyek', 'WO No.'],
+              label: 'Filter',
             ),
             SizedBox(
               height: 10,
