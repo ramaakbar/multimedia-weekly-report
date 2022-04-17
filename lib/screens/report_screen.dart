@@ -10,6 +10,7 @@ class ReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ReportViewModel report = context.watch<ReportViewModel>();
+    report.getCrewList();
     return Scaffold(
       appBar: AppBar(
         title: Text('Report'),
@@ -25,11 +26,7 @@ class ReportScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FilterSelect(
-              dropdownValue: 'Select Crew',
-              selectList: ['Select Crew', 'Crew 1', 'Crew 2', 'Crew 3'],
-              label: 'Filter',
-            ),
+            CrewDropdown(),
             SizedBox(
               height: 10,
             ),
@@ -80,5 +77,30 @@ class ReportScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class CrewDropdown extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(builder: (
+      context,
+      ReportViewModel crew,
+      child,
+    ) {
+      return DropdownButtonFormField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Crew',
+        ),
+        value: crew.selectedCrew,
+        onChanged: <String>(String value) {
+          crew.setSelectedCrew(value.toString());
+        },
+        items: crew.crewList
+            .map((e) => DropdownMenuItem(child: Text(e.name), value: e.idPtfi))
+            .toList(),
+      );
+    });
   }
 }
