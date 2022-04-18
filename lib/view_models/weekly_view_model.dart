@@ -11,8 +11,9 @@ class WeeklyViewModel extends ChangeNotifier {
   bool _loading = false;
   WeeklyError? _error;
   List<Datum> _weeklyListModel = [];
-  // set date to the first day of the year
-  // DateTime _date = DateTime(DateTime.now().year, 1, 1);
+  DateTime _date = DateTime.now().subtract(Duration(days: 7));
+  // DateTime _date =
+  //     DateTime(DateTime.now().year, 4, 6).subtract(Duration(days: 7));
   DateTimeRange _dateRange = DateTimeRange(
       start: DateTime(DateTime.now().year, 1, 5),
       end: DateTime(DateTime.now().year, 1, 5).add(Duration(days: 7)));
@@ -24,6 +25,29 @@ class WeeklyViewModel extends ChangeNotifier {
 
   WeeklyViewModel() {
     getWeeklyList();
+    calcDate();
+  }
+
+  void calcDate() {
+    // if (_date.isAfter(_dateRange.start.subtract(const Duration(days: 1))) &&
+    //     _date.isBefore(_dateRange.end.add(const Duration(days: 1)))) {
+    //   _dateRange =
+    //       DateTimeRange(start: _date, end: _date.add(const Duration(days: 7)));
+    // } else {
+    //   _dateRange = DateTimeRange(
+    //       start: _dateRange.start.add(Duration(days: 7)),
+    //       end: _dateRange.end.add(Duration(days: 7)));
+    // }
+    //14
+    while (
+        (!_dateRange.start.isAfter(_date.subtract(const Duration(days: 1))))) {
+      _dateRange = DateTimeRange(
+          start: _dateRange.start.add(Duration(days: 7)),
+          end: _dateRange.end.add(Duration(days: 7)));
+    }
+    getWeeklyList();
+
+    notifyListeners();
   }
 
   // make search weekly data source
