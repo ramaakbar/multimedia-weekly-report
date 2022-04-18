@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:weekly_report/view_models/report_view_model.dart';
 import 'package:weekly_report/widgets/filter_select.dart';
+import 'package:weekly_report/widgets/report_list.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({Key? key}) : super(key: key);
@@ -16,21 +17,25 @@ class ReportScreen extends StatelessWidget {
         title: Text('Report'),
         actions: [
           IconButton(
-            onPressed: () => {},
-            icon: Icon(Icons.search),
+            onPressed: () => {report.getWeeklyList()},
+            icon: Icon(Icons.refresh),
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CrewDropdown(),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            child: CrewDropdown(),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
@@ -53,28 +58,25 @@ class ReportScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Text('Current WO & Progress',
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text('Current WO & Progress',
                 style: Theme.of(context).textTheme.headline6),
-            SizedBox(
-              height: 15,
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: ReportList(),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Workorder $index'),
-                    subtitle: Text('Subtitle $index'),
-                    trailing: Icon(Icons.arrow_forward_ios),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -98,7 +100,7 @@ class CrewDropdown extends StatelessWidget {
           crew.setSelectedCrew(value.toString());
         },
         items: crew.crewList
-            .map((e) => DropdownMenuItem(child: Text(e.name), value: e.idPtfi))
+            .map((e) => DropdownMenuItem(child: Text(e.name), value: e.name))
             .toList(),
       );
     });

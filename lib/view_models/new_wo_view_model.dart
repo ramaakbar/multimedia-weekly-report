@@ -8,8 +8,10 @@ import 'package:weekly_report/repo/weekly_services.dart';
 
 class NewWoViewModel extends ChangeNotifier {
   ValidationItem _woNumber = ValidationItem('', '');
-  DateTimeRange _dateRange = DateTimeRange(
-      start: DateTime.now(), end: DateTime.now().add(Duration(days: 7)));
+  // DateTimeRange _dateRange = DateTimeRange(
+  //     start: DateTime.now(), end: DateTime.now().add(Duration(days: 7)));
+  DateTime _startDate = DateTime.now();
+  DateTime _endDate = DateTime.now().add(Duration(days: 7));
   // ValidationItem _requestorId = ValidationItem('', '');
   String? _selectedWorkArea;
   String? _selectedBusinessUnit;
@@ -47,7 +49,9 @@ class NewWoViewModel extends ChangeNotifier {
 
   //geters
   ValidationItem get woNumber => _woNumber;
-  DateTimeRange get dateRange => _dateRange;
+  // DateTimeRange get dateRange => _dateRange;
+  DateTime get startDate => _startDate;
+  DateTime get endDate => _endDate;
   // ValidationItem get requestorId => _requestorId;
   String? get selectedRequestor => _selectedRequestor;
   String? get selectedWorkArea => _selectedWorkArea;
@@ -155,26 +159,37 @@ class NewWoViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  pickDateRange(BuildContext context, dateRange) async {
-    DateTimeRange? newDateRange = await showDateRangePicker(
+  // pickDateRange(BuildContext context, dateRange) async {
+  //   DateTimeRange? newDateRange = await showDateRangePicker(
+  //       context: context,
+  //       firstDate: DateTime(1900),
+  //       lastDate: DateTime(2100),
+  //       initialDateRange: dateRange);
+  //   if (newDateRange == null) return;
+  //   _dateRange = newDateRange;
+  //   notifyListeners();
+  // }
+  pickDateStart(BuildContext context, date) async {
+    DateTime? newDate = await showDatePicker(
         context: context,
+        initialDate: date,
         firstDate: DateTime(1900),
-        lastDate: DateTime(2100),
-        initialDateRange: dateRange);
-    if (newDateRange == null) return;
-    _dateRange = newDateRange;
+        lastDate: DateTime(2100));
+    if (newDate == null) return;
+    _startDate = newDate;
     notifyListeners();
   }
 
-  // void changeRequestorId(String value) {
-  //   if (value.length >= 2) {
-  //     _requestorId = ValidationItem(value, '');
-  //   } else {
-  //     _requestorId =
-  //         ValidationItem('', 'Requestor ID must be atleast 3 characters');
-  //   }
-  //   notifyListeners();
-  // }
+  pickDateEnd(BuildContext context, date) async {
+    DateTime? newDate = await showDatePicker(
+        context: context,
+        initialDate: date,
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2100));
+    if (newDate == null) return;
+    _endDate = newDate;
+    notifyListeners();
+  }
 
   void changeProjectName(String value) {
     if (value.length >= 2) {
@@ -190,8 +205,8 @@ class NewWoViewModel extends ChangeNotifier {
     if (isValid) {
       data.addAll({
         'wo_number': _woNumber.value,
-        'start_date': DateFormat('yyyy/MM/dd').format(_dateRange.start),
-        'end_date': DateFormat('yyyy/MM/dd').format(_dateRange.end),
+        'start_date': DateFormat('yyyy/MM/dd').format(_startDate),
+        'end_date': DateFormat('yyyy/MM/dd').format(_endDate),
         'requestor_name': _selectedRequestor,
         'business_unit': _selectedBusinessUnit,
         'work_area': selectedWorkArea,
@@ -206,6 +221,8 @@ class NewWoViewModel extends ChangeNotifier {
       });
       // print(data);
       var response = WeeklyServices.postWeekly(data);
+      _startDate = DateTime.now();
+      _endDate = DateTime.now();
       _selectedRequestor = null;
       _selectedWorkArea = null;
       _selectedCrew = null;

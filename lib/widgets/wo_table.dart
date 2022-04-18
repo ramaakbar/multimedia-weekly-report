@@ -21,6 +21,12 @@ class WoTable extends StatelessWidget {
         errortxt: weeklyViewModel.error?.message,
       );
     }
+
+    if (weeklyViewModel.weeklyListModel.isEmpty) {
+      return Center(
+        child: Text('No data found'),
+      );
+    }
     return SfDataGridTheme(
       data: SfDataGridThemeData(headerColor: const Color(0xFFF5F5F5)),
       child: SfDataGrid(

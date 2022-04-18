@@ -48,7 +48,8 @@ class WeeklyDatatableSource extends DataGridSource {
               columnName: 'activity',
             ),
             DataGridCell(
-              value: data.progress,
+              // value: '${data.progress}%',
+              value: data.progress == null ? null : '${data.progress} %',
               columnName: 'progress',
             ),
             DataGridCell(

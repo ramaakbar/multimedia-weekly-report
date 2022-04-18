@@ -59,12 +59,11 @@ class NewWo extends StatelessWidget {
                       Text('Start Date', style: TextStyle(fontSize: 16)),
                       OutlinedButton.icon(
                         onPressed: () {
-                          newWo.pickDateRange(context, newWo.dateRange);
+                          newWo.pickDateStart(context, newWo.startDate);
                         },
                         icon: Icon(Icons.date_range),
                         label: Text(
-                          DateFormat('MM/dd/yyyy')
-                              .format(newWo.dateRange.start),
+                          DateFormat('MM/dd/yyyy').format(newWo.startDate),
                         ),
                       ),
                     ],
@@ -79,11 +78,11 @@ class NewWo extends StatelessWidget {
                       Text('End Date', style: TextStyle(fontSize: 16)),
                       OutlinedButton.icon(
                         onPressed: () {
-                          newWo.pickDateRange(context, newWo.dateRange);
+                          newWo.pickDateEnd(context, newWo.endDate);
                         },
                         icon: Icon(Icons.date_range),
                         label: Text(
-                          DateFormat('MM/dd/yyyy').format(newWo.dateRange.end),
+                          DateFormat('MM/dd/yyyy').format(newWo.endDate),
                         ),
                       ),
                     ],

@@ -45,6 +45,8 @@ class Datum {
     this.idPtfi,
     this.devAction,
     this.name,
+    this.startDate,
+    this.endDate,
   });
 
   String? workArea;
@@ -57,6 +59,8 @@ class Datum {
   String? idPtfi;
   String? devAction;
   String? name;
+  DateTime? startDate;
+  DateTime? endDate;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         workArea: json["work_area"] == null ? null : json["work_area"],
@@ -71,6 +75,11 @@ class Datum {
         idPtfi: json["id_ptfi"] == null ? null : json["id_ptfi"],
         devAction: json["dev_action"] == null ? null : json["dev_action"],
         name: json["name"] == null ? null : json["name"],
+        startDate: json["start_date"] == null
+            ? null
+            : DateTime.parse(json["start_date"]),
+        endDate:
+            json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -86,6 +95,12 @@ class Datum {
         "id_ptfi": idPtfi == null ? null : idPtfi,
         "dev_action": devAction == null ? null : devAction,
         "name": name == null ? null : name,
+        "start_date": startDate == null
+            ? null
+            : "${startDate?.year.toString().padLeft(4, '0')}-${startDate?.month.toString().padLeft(2, '0')}-${startDate?.day.toString().padLeft(2, '0')}",
+        "end_date": endDate == null
+            ? null
+            : "${endDate?.year.toString().padLeft(4, '0')}-${endDate?.month.toString().padLeft(2, '0')}-${endDate?.day.toString().padLeft(2, '0')}",
       };
 }
 

@@ -118,4 +118,65 @@ class WeeklyServices {
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknow Error');
     }
   }
+
+  static Future<Object> deleteWeekly(String id) async {
+    try {
+      var url =
+          Uri.parse('http://10.0.2.2:40/weekly_api/api/delete_weekly.php');
+
+      var body = jsonEncode({'wo_number': id});
+
+      var response = await http.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      );
+      if (response.statusCode == SUCCESS) {
+        return Success(response: weeklyModelFromJson(response.body).data);
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'No Data');
+    } on HttpException {
+      return Failure(
+          code: NO_INTERNET, errorResponse: 'No Internet Connection');
+    } on SocketException {
+      return Failure(
+          code: NO_INTERNET, errorResponse: 'No Internet Connection');
+    } on FormatException {
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Invalid Format');
+    } catch (e) {
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknow Error');
+    }
+  }
+
+  static Future<Object> updateWeekly(Map data) async {
+    try {
+      var url =
+          Uri.parse('http://10.0.2.2:40/weekly_api/api/update_weekly.php');
+      var body = jsonEncode(data);
+
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      );
+      if (response.statusCode == SUCCESS) {
+        return Success(response: weeklyModelFromJson(response.body).data);
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'No Data');
+    } on HttpException {
+      return Failure(
+          code: NO_INTERNET, errorResponse: 'No Internet Connection');
+    } on SocketException {
+      return Failure(
+          code: NO_INTERNET, errorResponse: 'No Internet Connection');
+    } on FormatException {
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Invalid Format');
+    } catch (e) {
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknow Error');
+    }
+  }
 }
