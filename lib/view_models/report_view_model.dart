@@ -10,8 +10,10 @@ class ReportViewModel extends ChangeNotifier {
   List _crewList = [];
   bool _loading = false;
   WeeklyError? _error;
-  DateTimeRange _dateRange = DateTimeRange(
-      start: DateTime.now(), end: DateTime.now().add(Duration(days: 7)));
+  // DateTimeRange _dateRange = DateTimeRange(
+  //     start: DateTime.now(), end: DateTime.now().add(Duration(days: 7)));
+  DateTime _startDate = DateTime.now();
+  DateTime _endDate = DateTime.now().add(Duration(days: 7));
   List<wm.Datum> _weeklyListModel = [];
   Map data = {};
   final _actionController = TextEditingController();
@@ -19,7 +21,9 @@ class ReportViewModel extends ChangeNotifier {
   final _progressController = TextEditingController();
   final _activityController = TextEditingController();
 
-  DateTimeRange get dateRange => _dateRange;
+  // DateTimeRange get dateRange => _dateRange;
+  DateTime get startDate => _startDate;
+  DateTime get endDate => _endDate;
   String? get selectedCrew => _selectedCrew;
   wm.Datum? get selectedWo => _selectedWo;
   List get crewList => _crewList;
@@ -77,14 +81,35 @@ class ReportViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  pickDateRange(BuildContext context, dateRange) async {
-    DateTimeRange? newDateRange = await showDateRangePicker(
+  // pickDateRange(BuildContext context, dateRange) async {
+  //   DateTimeRange? newDateRange = await showDateRangePicker(
+  //       context: context,
+  //       firstDate: DateTime(1900),
+  //       lastDate: DateTime(2100),
+  //       initialDateRange: dateRange);
+  //   if (newDateRange == null) return;
+  //   _dateRange = newDateRange;
+  //   notifyListeners();
+  // }
+  pickDateStart(BuildContext context, date) async {
+    DateTime? newDate = await showDatePicker(
         context: context,
+        initialDate: date,
         firstDate: DateTime(1900),
-        lastDate: DateTime(2100),
-        initialDateRange: dateRange);
-    if (newDateRange == null) return;
-    _dateRange = newDateRange;
+        lastDate: DateTime(2100));
+    if (newDate == null) return;
+    _startDate = newDate;
+    notifyListeners();
+  }
+
+  pickDateEnd(BuildContext context, date) async {
+    DateTime? newDate = await showDatePicker(
+        context: context,
+        initialDate: date,
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2100));
+    if (newDate == null) return;
+    _endDate = newDate;
     notifyListeners();
   }
 

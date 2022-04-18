@@ -31,29 +31,46 @@ class ReportScreen extends StatelessWidget {
             child: CrewDropdown(),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () =>
-                        report.pickDateRange(context, report.dateRange),
-                    child: Text(DateFormat('MM/dd/yyyy')
-                        .format(report.dateRange.start)),
+                Flexible(
+                  child: Column(
+                    children: [
+                      Text('Start Date', style: TextStyle(fontSize: 16)),
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          report.pickDateStart(context, report.startDate);
+                        },
+                        icon: Icon(Icons.date_range),
+                        label: Text(
+                          DateFormat('MM/dd/yyyy').format(report.startDate),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  width: 10,
+                const SizedBox(
+                  width: 20.0,
                 ),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () =>
-                        report.pickDateRange(context, report.dateRange),
-                    child: Text(
-                        DateFormat('MM/dd/yyyy').format(report.dateRange.end)),
+                Flexible(
+                  child: Column(
+                    children: [
+                      Text('End Date', style: TextStyle(fontSize: 16)),
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          report.pickDateEnd(context, report.endDate);
+                        },
+                        icon: Icon(Icons.date_range),
+                        label: Text(
+                          DateFormat('MM/dd/yyyy').format(report.endDate),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
