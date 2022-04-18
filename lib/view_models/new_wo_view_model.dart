@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weekly_report/models/validation_item.dart';
 import 'package:weekly_report/models/workarea_model.dart';
+import 'package:weekly_report/models/karyawan_model.dart' as karyawan;
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/repo/weekly_services.dart';
 
@@ -9,49 +10,70 @@ class NewWoViewModel extends ChangeNotifier {
   ValidationItem _woNumber = ValidationItem('', '');
   DateTimeRange _dateRange = DateTimeRange(
       start: DateTime.now(), end: DateTime.now().add(Duration(days: 7)));
-  ValidationItem _requestorId = ValidationItem('', '');
+  // ValidationItem _requestorId = ValidationItem('', '');
   String? _selectedWorkArea;
   String? _selectedBusinessUnit;
   String? _selectedCrew;
+  String? _selectedRequestor;
   // ValidationItem _requestorName = ValidationItem('', '');
   ValidationItem _projectName = ValidationItem('', '');
 
   Map data = {};
+  List<karyawan.Datum> _requestorList = [];
   List<Datum> _workAreaList = [];
   List _crewList = [];
   List _businessUnitList = [];
 
   NewWoViewModel() {
+    _selectedRequestor = null;
+    _selectedWorkArea = null;
+    _selectedCrew = null;
+    _selectedBusinessUnit = null;
     getWorkAreaList();
     getCrewList();
     getBusinessList();
+    getRequestorList();
   }
 
   void reset() {
     _woNumber = ValidationItem('', '');
-    _requestorId = ValidationItem('', '');
+    // _requestorId = ValidationItem('', '');
     _projectName = ValidationItem('', '');
+    getWorkAreaList();
+    getCrewList();
+    getBusinessList();
+    getRequestorList();
   }
 
   //geters
   ValidationItem get woNumber => _woNumber;
   DateTimeRange get dateRange => _dateRange;
-  ValidationItem get requestorId => _requestorId;
+  // ValidationItem get requestorId => _requestorId;
+  String? get selectedRequestor => _selectedRequestor;
   String? get selectedWorkArea => _selectedWorkArea;
   String? get selectedBusinessUnit => _selectedBusinessUnit;
   String? get selectedCrew => _selectedCrew;
 
+  void setSelectedRequestor(final String item) {
+    // _selectedRequestor = null;
+    _selectedRequestor = item;
+    notifyListeners();
+  }
+
   void setSelectedWorkArea(final String item) {
+    // _selectedWorkArea = null;
     _selectedWorkArea = item;
     notifyListeners();
   }
 
   void setSelectedCrew(final String item) {
+    // _selectedCrew = null;
     _selectedCrew = item;
     notifyListeners();
   }
 
   void setSelectedBusinessUnit(final String item) {
+    // _selectedBusinessUnit = null;
     _selectedBusinessUnit = item;
     notifyListeners();
   }
@@ -59,13 +81,14 @@ class NewWoViewModel extends ChangeNotifier {
   // ValidationItem get requestorName => _requestorName;
 
   ValidationItem get projectName => _projectName;
+  List<karyawan.Datum> get requestorList => _requestorList;
   List<Datum> get workAreaList => _workAreaList;
   List get businessUnitList => _businessUnitList;
 
   List get crewList => _crewList;
   bool get isValid {
     if (woNumber.value != '' &&
-        _requestorId.value != '' &&
+        // _requestorId.value != '' &&
         _projectName.value != '' &&
         _selectedWorkArea != null) {
       return true;
@@ -74,12 +97,24 @@ class NewWoViewModel extends ChangeNotifier {
     }
   }
 
+  getRequestorList() async {
+    if (requestorList.isEmpty) {
+      var response = await WeeklyServices.getKaryawan();
+      if (response is Success) {
+        _requestorList = response.response as List<karyawan.Datum>;
+        // _selectedRequestor = _requestorList[0].;
+
+        notifyListeners();
+      }
+    }
+  }
+
   getWorkAreaList() async {
     if (workAreaList.isEmpty) {
       var response = await WeeklyServices.getWorkArea();
       if (response is Success) {
         _workAreaList = response.response as List<Datum>;
-        _selectedWorkArea = _workAreaList[0].workArea;
+        // _selectedWorkArea = _workAreaList[0].workArea;
 
         notifyListeners();
       }
@@ -91,7 +126,7 @@ class NewWoViewModel extends ChangeNotifier {
       var response = await WeeklyServices.getCrew();
       if (response is Success) {
         _crewList = response.response as List;
-        _selectedCrew = _crewList[0].idPtfi;
+        // _selectedCrew = _crewList[0].idPtfi;
 
         notifyListeners();
       }
@@ -103,7 +138,7 @@ class NewWoViewModel extends ChangeNotifier {
       var response = await WeeklyServices.getBusiness();
       if (response is Success) {
         _businessUnitList = response.response as List;
-        _selectedBusinessUnit = _businessUnitList[0].name;
+        // _selectedBusinessUnit = _businessUnitList[0].name;
 
         notifyListeners();
       }
@@ -131,15 +166,15 @@ class NewWoViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeRequestorId(String value) {
-    if (value.length >= 2) {
-      _requestorId = ValidationItem(value, '');
-    } else {
-      _requestorId =
-          ValidationItem('', 'Requestor ID must be atleast 3 characters');
-    }
-    notifyListeners();
-  }
+  // void changeRequestorId(String value) {
+  //   if (value.length >= 2) {
+  //     _requestorId = ValidationItem(value, '');
+  //   } else {
+  //     _requestorId =
+  //         ValidationItem('', 'Requestor ID must be atleast 3 characters');
+  //   }
+  //   notifyListeners();
+  // }
 
   void changeProjectName(String value) {
     if (value.length >= 2) {
@@ -157,12 +192,12 @@ class NewWoViewModel extends ChangeNotifier {
         'wo_number': _woNumber.value,
         'start_date': DateFormat('yyyy/MM/dd').format(_dateRange.start),
         'end_date': DateFormat('yyyy/MM/dd').format(_dateRange.end),
-        'requestor_name': _requestorId.value,
+        'requestor_name': _selectedRequestor,
         'business_unit': _selectedBusinessUnit,
         'work_area': selectedWorkArea,
         'project_name': _projectName.value,
         'assigned': selectedCrew,
-        "progress": null,
+        "progress": 0,
         "id_ptfi": selectedCrew,
         "activity": null,
         "dev_action": null,
@@ -171,12 +206,15 @@ class NewWoViewModel extends ChangeNotifier {
       });
       // print(data);
       var response = WeeklyServices.postWeekly(data);
-      reset();
+      _selectedRequestor = null;
+      _selectedWorkArea = null;
+      _selectedCrew = null;
+      _selectedBusinessUnit = null;
       return true;
     } else {
       _woNumber = ValidationItem(woNumber.value, 'WO Number must be filled');
-      _requestorId =
-          ValidationItem(requestorId.value, 'Requestor ID must be filled');
+      // _requestorId =
+      //     ValidationItem(requestorId.value, 'Requestor ID must be filled');
 
       _projectName =
           ValidationItem(projectName.value, 'Project Name must be filled');

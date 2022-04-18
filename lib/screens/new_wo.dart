@@ -11,12 +11,22 @@ class NewWo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NewWoViewModel newWo = context.watch<NewWoViewModel>();
-    newWo.getWorkAreaList();
-    newWo.getCrewList();
-    newWo.getBusinessList();
+    // newWo.getWorkAreaList();
+    // newWo.getCrewList();
+    // newWo.getBusinessList();
+    newWo.getRequestorList();
     return Scaffold(
       appBar: AppBar(
         title: Text('New Multimedia WO'),
+        actions: [
+          IconButton(
+            onPressed: () => {
+              // showSearch(context: context, delegate: CustomSearchDelegate())
+              newWo.reset()
+            },
+            icon: Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
@@ -84,18 +94,19 @@ class NewWo extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Requestor ID',
-                errorText: newWo.requestorId.error.isNotEmpty
-                    ? newWo.requestorId.error
-                    : null,
-                border: OutlineInputBorder(),
-              ),
-              onChanged: (String value) {
-                newWo.changeRequestorId(value);
-              },
-            ),
+            RequestorDropdown(),
+            // TextField(
+            //   decoration: InputDecoration(
+            //     labelText: 'Requestor ID',
+            //     errorText: newWo.requestorId.error.isNotEmpty
+            //         ? newWo.requestorId.error
+            //         : null,
+            //     border: OutlineInputBorder(),
+            //   ),
+            //   onChanged: (String value) {
+            //     newWo.changeRequestorId(value);
+            //   },
+            // ),
             const SizedBox(
               height: 20.0,
             ),
@@ -146,6 +157,32 @@ class NewWo extends StatelessWidget {
   }
 }
 
+class RequestorDropdown extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(builder: (
+      context,
+      NewWoViewModel newWo,
+      child,
+    ) {
+      return DropdownButtonFormField(
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Requestor',
+        ),
+        value: newWo.selectedRequestor,
+        onChanged: <String>(String value) {
+          newWo.setSelectedRequestor(value.toString());
+        },
+        items: newWo.requestorList
+            .map((e) => DropdownMenuItem(
+                child: Text('${e.username}'), value: e.username))
+            .toList(),
+      );
+    });
+  }
+}
+
 class WorkAreaDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -164,8 +201,9 @@ class WorkAreaDropdown extends StatelessWidget {
           newWo.setSelectedWorkArea(value.toString());
         },
         items: newWo.workAreaList
-            .map((e) =>
-                DropdownMenuItem(child: Text(e.workArea), value: e.workArea))
+            .map((e) => DropdownMenuItem(
+                child: Text('${e.workCode} | ${e.workArea}'),
+                value: e.workArea))
             .toList(),
       );
     });

@@ -11,8 +11,11 @@ class WeeklyViewModel extends ChangeNotifier {
   bool _loading = false;
   WeeklyError? _error;
   List<Datum> _weeklyListModel = [];
+  // set date to the first day of the year
+  // DateTime _date = DateTime(DateTime.now().year, 1, 1);
   DateTimeRange _dateRange = DateTimeRange(
-      start: DateTime.now(), end: DateTime.now().add(Duration(days: 7)));
+      start: DateTime(DateTime.now().year, 1, 5),
+      end: DateTime(DateTime.now().year, 1, 5).add(Duration(days: 7)));
 
   bool get loading => _loading;
   List<Datum> get weeklyListModel => _weeklyListModel;

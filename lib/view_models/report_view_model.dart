@@ -26,7 +26,6 @@ class ReportViewModel extends ChangeNotifier {
       var response = await WeeklyServices.getCrew();
       if (response is Success) {
         _crewList = response.response as List;
-        _selectedCrew = _crewList[0].idPtfi;
 
         notifyListeners();
       }

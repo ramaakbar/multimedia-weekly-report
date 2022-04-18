@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:weekly_report/models/karyawan_model.dart';
 import 'package:weekly_report/models/weekly_model.dart';
 import 'package:weekly_report/models/workarea_model.dart' as wa;
 import 'package:weekly_report/models/crew_model.dart' as cm;
@@ -19,6 +20,30 @@ class WeeklyServices {
 
       if (response.statusCode == SUCCESS) {
         return Success(response: weeklyModelFromJson(response.body).data);
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'No Data');
+    } on HttpException {
+      return Failure(
+          code: NO_INTERNET, errorResponse: 'No Internet Connection');
+    } on SocketException {
+      return Failure(
+          code: NO_INTERNET, errorResponse: 'No Internet Connection');
+    } on FormatException {
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Invalid Format');
+    } catch (e) {
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknow Error');
+    }
+  }
+
+  static Future<Object> getKaryawan() async {
+    try {
+      var url = Uri.parse('http://10.0.2.2:40/weekly_api/api/get_karyawan.php');
+      var response = await http.get(url);
+      // var response =
+      //     await Future.delayed(Duration(seconds: 5), () => http.get(url));
+
+      if (response.statusCode == SUCCESS) {
+        return Success(response: karyawanFromJson(response.body).data);
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'No Data');
     } on HttpException {
