@@ -31,6 +31,7 @@ class NewWo extends StatelessWidget {
               height: 20.0,
             ),
             TextField(
+              controller: newWo.woController,
               decoration: InputDecoration(
                 labelText: 'WO Number',
                 errorText: newWo.woNumber.error.isNotEmpty

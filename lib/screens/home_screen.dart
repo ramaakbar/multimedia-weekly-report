@@ -88,6 +88,8 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async => {
+          newWo.setController(weeklyViewModel
+              .weeklyListModel[weeklyViewModel.weeklyListModel.length - 1]),
           Navigator.push(
             context,
             MaterialPageRoute(

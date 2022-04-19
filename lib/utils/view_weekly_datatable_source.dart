@@ -17,11 +17,11 @@ class ViewWeeklyDatatableSource extends DataGridSource {
               [
             DataGridCell(
               value: i++,
-              columnName: 'no',
+              columnName: 'No',
             ),
             DataGridCell(
               value: data.businessUnit,
-              columnName: 'businessUnit',
+              columnName: 'Business Unit',
             ),
 
             // DataGridCell(
@@ -30,7 +30,7 @@ class ViewWeeklyDatatableSource extends DataGridSource {
             // ),
             DataGridCell(
               value: data.projectName,
-              columnName: 'projectName',
+              columnName: 'Project Name',
             ),
             // DataGridCell(
             //   value: data.activity,
@@ -39,7 +39,7 @@ class ViewWeeklyDatatableSource extends DataGridSource {
             DataGridCell(
               // value: '${data.progress}%',
               value: data.progress == null ? null : '${data.progress} %',
-              columnName: 'progress',
+              columnName: 'Progress',
             ),
             // DataGridCell(
             //   value:
@@ -56,11 +56,11 @@ class ViewWeeklyDatatableSource extends DataGridSource {
             // ),
             DataGridCell(
               value: data.devAction,
-              columnName: 'action',
+              columnName: 'Action',
             ),
             DataGridCell(
               value: data.workArea,
-              columnName: 'workArea',
+              columnName: 'Work Area',
             ),
             // DataGridCell(
             //   value: data.name,

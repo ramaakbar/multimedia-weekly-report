@@ -17,8 +17,6 @@ import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xl;
 import 'app_error.dart';
 import 'package:weekly_report/utils/save_file_mobile_desktop.dart' as helper;
-import 'dart:io';
-import 'package:open_file/open_file.dart';
 
 class ViewWeeklyTable extends StatelessWidget {
   final GlobalKey<SfDataGridState> _key = GlobalKey<SfDataGridState>();
@@ -49,10 +47,20 @@ class ViewWeeklyTable extends StatelessWidget {
             ElevatedButton(
                 child: Text('Export to PDF'),
                 onPressed: () async {
-                  final PdfDocument document = _key.currentState!
-                      .exportToPdfDocument(fitAllColumnsInOnePage: true);
+                  final PdfDocument document =
+                      _key.currentState!.exportToPdfDocument(
+                    fitAllColumnsInOnePage: true,
+                    cellExport: (details) {
+                      if (details.cellType ==
+                          DataGridExportCellType.columnHeader) {
+                        details.pdfCell.style.backgroundBrush =
+                            PdfBrushes.darkSlateBlue;
+                        details.pdfCell.style.textBrush = PdfBrushes.white;
+                      }
+                    },
+                  );
                   final List<int> bytes = document.save();
-                  await helper.saveAndLaunchFile(bytes, 'DataGrid.pdf');
+                  await helper.saveAndLaunchFile(bytes, 'Weekly Report.pdf');
                   document.dispose();
                 }),
             ElevatedButton(
@@ -86,14 +94,14 @@ class ViewWeeklyTable extends StatelessWidget {
 
   List<GridColumn> buildGridColumns() => <GridColumn>[
         GridColumn(
-          columnName: 'no',
+          columnName: 'No',
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
               child: buildLabel('No')),
         ),
         GridColumn(
-          columnName: 'businessUnit',
+          columnName: 'Business Unit',
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
@@ -108,7 +116,7 @@ class ViewWeeklyTable extends StatelessWidget {
         //       child: buildLabel('WO No.')),
         // ),
         GridColumn(
-          columnName: 'projectName',
+          columnName: 'Project Name',
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
@@ -122,7 +130,7 @@ class ViewWeeklyTable extends StatelessWidget {
         //       child: buildLabel('Activity')),
         // ),
         GridColumn(
-          columnName: 'progress',
+          columnName: 'Progress',
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
@@ -150,14 +158,14 @@ class ViewWeeklyTable extends StatelessWidget {
         //       child: buildLabel('ID No')),
         // ),
         GridColumn(
-          columnName: 'action',
+          columnName: 'Action',
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
               child: buildLabel('Action')),
         ),
         GridColumn(
-          columnName: 'workArea',
+          columnName: 'Work Area',
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,

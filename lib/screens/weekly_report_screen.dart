@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weekly_report/screens/tabs/view_weekly.dart';
 import 'package:weekly_report/view_models/view_weekly_model.dart';
+import 'package:weekly_report/widgets/refresh_icon.dart';
 
 import 'package:weekly_report/widgets/view_weekly_table.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class WeeklyReportScreen extends StatelessWidget {
                 Tab(text: 'Crew'),
               ],
             ),
+            actions: [RefreshIcon()],
           ),
           body: const TabBarView(
             children: <Widget>[

@@ -5,6 +5,7 @@ import 'package:weekly_report/models/workarea_model.dart';
 import 'package:weekly_report/models/karyawan_model.dart' as karyawan;
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/repo/weekly_services.dart';
+import 'package:weekly_report/models/weekly_model.dart' as wm;
 
 class NewWoViewModel extends ChangeNotifier {
   ValidationItem _woNumber = ValidationItem('', '');
@@ -19,6 +20,7 @@ class NewWoViewModel extends ChangeNotifier {
   String? _selectedRequestor;
   // ValidationItem _requestorName = ValidationItem('', '');
   ValidationItem _projectName = ValidationItem('', '');
+  final _woController = TextEditingController();
 
   Map data = {};
   List<karyawan.Datum> _requestorList = [];
@@ -57,6 +59,15 @@ class NewWoViewModel extends ChangeNotifier {
   String? get selectedWorkArea => _selectedWorkArea;
   String? get selectedBusinessUnit => _selectedBusinessUnit;
   String? get selectedCrew => _selectedCrew;
+  get woController => _woController;
+
+  // set wo number text field to the latest wo number
+  void setController(wm.Datum wo) {
+    // get the latest wo Number from list of wo + 1
+    _woController.text = wo.woNumber!.split('/')[0] +
+        '/' +
+        (int.parse(wo.woNumber!.split('/')[1]) + 1).toString();
+  }
 
   void setSelectedRequestor(final String item) {
     // _selectedRequestor = null;
