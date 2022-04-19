@@ -5,7 +5,6 @@ import 'package:weekly_report/models/weekly_model.dart';
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/repo/weekly_services.dart';
 import 'package:weekly_report/utils/view_weekly_datatable_source.dart';
-import 'package:weekly_report/utils/weekly_datatable_source.dart';
 
 class ViewWeeklyModel extends ChangeNotifier {
   late ViewWeeklyDatatableSource viewWeeklyDataSource;

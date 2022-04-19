@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weekly_report/models/workarea_model.dart';
 import 'package:weekly_report/view_models/new_wo_view_model.dart';
-import 'package:weekly_report/widgets/filter_select.dart';
 import 'package:provider/provider.dart';
 import 'package:weekly_report/widgets/refresh_icon.dart';
 
