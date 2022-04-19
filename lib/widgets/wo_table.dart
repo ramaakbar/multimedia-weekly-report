@@ -77,13 +77,6 @@ class WoTable extends StatelessWidget {
               child: buildLabel('Activity')),
         ),
         GridColumn(
-          columnName: 'progress',
-          label: Container(
-              padding: EdgeInsets.all(5),
-              alignment: Alignment.centerLeft,
-              child: buildLabel('Progress')),
-        ),
-        GridColumn(
           columnName: 'submitOn',
           label: Container(
               padding: EdgeInsets.all(5),
@@ -112,11 +105,19 @@ class WoTable extends StatelessWidget {
               child: buildLabel('Action')),
         ),
         GridColumn(
+          columnWidthMode: ColumnWidthMode.fill,
           columnName: 'crew',
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
               child: buildLabel('Crew')),
+        ),
+        GridColumn(
+          columnName: 'progress',
+          label: Container(
+              padding: EdgeInsets.all(5),
+              alignment: Alignment.centerLeft,
+              child: buildLabel('Progress')),
         ),
       ];
 

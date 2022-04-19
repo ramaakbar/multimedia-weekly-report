@@ -42,7 +42,7 @@ class ReportList extends StatelessWidget {
                 value: 'Edit',
               ),
               PopupMenuItem(
-                child: Text('Delete'),
+                child: Text('Delete', style: TextStyle(color: Colors.red)),
                 value: 'Delete',
               ),
             ];
@@ -128,6 +128,7 @@ class updateDialog extends StatelessWidget {
               height: 20,
             ),
             TextField(
+                maxLines: 4,
                 controller: report.activityController,
                 decoration: InputDecoration(
                   labelText: 'Activity',

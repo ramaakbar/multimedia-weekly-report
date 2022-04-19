@@ -99,6 +99,7 @@ class ReportViewModel extends ChangeNotifier {
         lastDate: DateTime(2100));
     if (newDate == null) return;
     _startDate = newDate;
+    getWeeklyList();
     notifyListeners();
   }
 
@@ -110,6 +111,7 @@ class ReportViewModel extends ChangeNotifier {
         lastDate: DateTime(2100));
     if (newDate == null) return;
     _endDate = newDate;
+    getWeeklyList();
     notifyListeners();
   }
 
@@ -117,13 +119,14 @@ class ReportViewModel extends ChangeNotifier {
     // _weeklyListModel = weeklyListModel;
     // filter data based on date range
     _weeklyListModel = weeklyListModel
-        .where((element) => element.name == selectedCrew
-            // &&
-            // element.dateSubmit!.isAfter(
-            //     _dateRange.start.subtract(const Duration(days: 1))) &&
-            // element.dateSubmit!
-            //     .isBefore(_dateRange.end.add(const Duration(days: 1))),
-            )
+        .where(
+          (element) =>
+              element.name == selectedCrew &&
+              element.dateSubmit!
+                  .isAfter(_startDate.subtract(const Duration(days: 1))) &&
+              element.dateSubmit!
+                  .isBefore(_endDate.add(const Duration(days: 1))),
+        )
         .toList();
     print(_weeklyListModel);
     notifyListeners();

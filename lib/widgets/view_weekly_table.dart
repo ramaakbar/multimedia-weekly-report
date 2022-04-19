@@ -43,6 +43,7 @@ class ViewWeeklyTable extends StatelessWidget {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
                 child: Text('Export to PDF'),
@@ -63,6 +64,9 @@ class ViewWeeklyTable extends StatelessWidget {
                   await helper.saveAndLaunchFile(bytes, 'Weekly Report.pdf');
                   document.dispose();
                 }),
+            SizedBox(
+              width: 20,
+            ),
             ElevatedButton(
                 child: Text('Export to Excel'),
                 onPressed: () async {
@@ -73,6 +77,9 @@ class ViewWeeklyTable extends StatelessWidget {
                   await helper.saveAndLaunchFile(bytes, 'DataGrid.xlsx');
                 }),
           ],
+        ),
+        SizedBox(
+          height: 10,
         ),
         Expanded(
           child: SfDataGridTheme(

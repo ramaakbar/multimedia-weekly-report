@@ -48,11 +48,6 @@ class WeeklyDatatableSource extends DataGridSource {
               columnName: 'activity',
             ),
             DataGridCell(
-              // value: '${data.progress}%',
-              value: data.progress == null ? null : '${data.progress} %',
-              columnName: 'progress',
-            ),
-            DataGridCell(
               value:
                   DateFormat('MM/dd/yyyy').format(data.dateSubmit as DateTime),
               columnName: 'submitOn',
@@ -72,6 +67,11 @@ class WeeklyDatatableSource extends DataGridSource {
             DataGridCell(
               value: data.name,
               columnName: 'name',
+            ),
+            DataGridCell(
+              // value: '${data.progress}%',
+              value: data.progress == null ? null : '${data.progress} %',
+              columnName: 'progress',
             ),
           ]),
         )

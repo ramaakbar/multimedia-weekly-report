@@ -40,7 +40,6 @@ class NewWoViewModel extends ChangeNotifier {
   }
 
   void reset() {
-    _woNumber = ValidationItem('', '');
     // _requestorId = ValidationItem('', '');
     _projectName = ValidationItem('', '');
     getWorkAreaList();
@@ -67,6 +66,8 @@ class NewWoViewModel extends ChangeNotifier {
     _woController.text = wo.woNumber!.split('/')[0] +
         '/' +
         (int.parse(wo.woNumber!.split('/')[1]) + 1).toString();
+
+    _woNumber = ValidationItem(_woController.text, '');
   }
 
   void setSelectedRequestor(final String item) {
@@ -240,7 +241,7 @@ class NewWoViewModel extends ChangeNotifier {
       _selectedBusinessUnit = null;
       return true;
     } else {
-      _woNumber = ValidationItem(woNumber.value, 'WO Number must be filled');
+      // _woNumber = ValidationItem(woNumber.value, 'WO Number must be filled');
       // _requestorId =
       //     ValidationItem(requestorId.value, 'Requestor ID must be filled');
 

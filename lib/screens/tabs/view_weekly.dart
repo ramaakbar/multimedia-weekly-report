@@ -58,9 +58,6 @@ class ViewWeekly extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
-            height: 5.0,
-          ),
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),

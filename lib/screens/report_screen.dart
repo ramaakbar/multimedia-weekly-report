@@ -37,38 +37,28 @@ class ReportScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
-                  child: Column(
-                    children: [
-                      Text('Start Date', style: TextStyle(fontSize: 16)),
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          report.pickDateStart(context, report.startDate);
-                        },
-                        icon: Icon(Icons.date_range),
-                        label: Text(
-                          DateFormat('MM/dd/yyyy').format(report.startDate),
-                        ),
-                      ),
-                    ],
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      report.pickDateStart(context, report.startDate);
+                    },
+                    icon: Icon(Icons.date_range),
+                    label: Text(
+                      DateFormat('MM/dd/yyyy').format(report.startDate),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 20.0,
                 ),
                 Flexible(
-                  child: Column(
-                    children: [
-                      Text('End Date', style: TextStyle(fontSize: 16)),
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          report.pickDateEnd(context, report.endDate);
-                        },
-                        icon: Icon(Icons.date_range),
-                        label: Text(
-                          DateFormat('MM/dd/yyyy').format(report.endDate),
-                        ),
-                      ),
-                    ],
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      report.pickDateEnd(context, report.endDate);
+                    },
+                    icon: Icon(Icons.date_range),
+                    label: Text(
+                      DateFormat('MM/dd/yyyy').format(report.endDate),
+                    ),
                   ),
                 ),
               ],
