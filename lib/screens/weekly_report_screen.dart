@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weekly_report/view_models/view_weekly_model.dart';
@@ -6,8 +8,6 @@ import 'package:weekly_report/widgets/view_weekly_table.dart';
 import 'package:provider/provider.dart';
 
 class WeeklyReportScreen extends StatelessWidget {
-  const WeeklyReportScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     ViewWeeklyModel weekly = context.watch<ViewWeeklyModel>();
@@ -18,17 +18,6 @@ class WeeklyReportScreen extends StatelessWidget {
           IconButton(
             onPressed: () => {weekly.getWeeklyList()},
             icon: Icon(Icons.refresh),
-          ),
-          PopupMenuButton<String>(
-            onSelected: handleClick,
-            itemBuilder: (BuildContext context) {
-              return {'CSV', 'Excel', 'PDF'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
-            },
           ),
         ],
       ),
@@ -92,13 +81,5 @@ class WeeklyReportScreen extends StatelessWidget {
     );
   }
 
-  void handleClick(String value) {
-    switch (value) {
-      case 'PDF':
-        print('pdf');
-        break;
-      case 'Settings':
-        break;
-    }
-  }
+  void exportDataGridToPdf() {}
 }

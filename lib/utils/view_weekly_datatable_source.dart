@@ -17,50 +17,55 @@ class ViewWeeklyDatatableSource extends DataGridSource {
               [
             DataGridCell(
               value: i++,
-              columnName: 'No',
+              columnName: 'no',
             ),
             DataGridCell(
-              value: data.workArea,
-              columnName: 'workArea',
+              value: data.businessUnit,
+              columnName: 'businessUnit',
             ),
-            DataGridCell(
-              value: data.woNumber,
-              columnName: 'woNo',
-            ),
+
+            // DataGridCell(
+            //   value: data.woNumber,
+            //   columnName: 'woNo',
+            // ),
             DataGridCell(
               value: data.projectName,
               columnName: 'projectName',
             ),
-            DataGridCell(
-              value: data.activity,
-              columnName: 'activity',
-            ),
+            // DataGridCell(
+            //   value: data.activity,
+            //   columnName: 'activity',
+            // ),
             DataGridCell(
               // value: '${data.progress}%',
               value: data.progress == null ? null : '${data.progress} %',
               columnName: 'progress',
             ),
-            DataGridCell(
-              value:
-                  DateFormat('MM/dd/yyyy').format(data.dateSubmit as DateTime),
-              columnName: 'submitOn',
-            ),
-            DataGridCell(
-              value: data.manHours,
-              columnName: 'mHrs',
-            ),
-            DataGridCell(
-              value: data.idPtfi,
-              columnName: 'idPtfi',
-            ),
+            // DataGridCell(
+            //   value:
+            //       DateFormat('MM/dd/yyyy').format(data.dateSubmit as DateTime),
+            //   columnName: 'submitOn',
+            // ),
+            // DataGridCell(
+            //   value: data.manHours,
+            //   columnName: 'mHrs',
+            // ),
+            // DataGridCell(
+            //   value: data.idPtfi,
+            //   columnName: 'Id Ptfi',
+            // ),
             DataGridCell(
               value: data.devAction,
-              columnName: 'devAction',
+              columnName: 'action',
             ),
             DataGridCell(
-              value: data.name,
-              columnName: 'name',
+              value: data.workArea,
+              columnName: 'workArea',
             ),
+            // DataGridCell(
+            //   value: data.name,
+            //   columnName: 'crew',
+            // ),
           ]),
         )
         .toList();

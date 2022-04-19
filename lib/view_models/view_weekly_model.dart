@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:weekly_report/models/weekly_error.dart';
 import 'package:weekly_report/models/weekly_model.dart';
 import 'package:weekly_report/repo/api_status.dart';
@@ -8,6 +9,7 @@ import 'package:weekly_report/utils/weekly_datatable_source.dart';
 
 class ViewWeeklyModel extends ChangeNotifier {
   late ViewWeeklyDatatableSource viewWeeklyDataSource;
+  GlobalKey<SfDataGridState> key = GlobalKey<SfDataGridState>();
 
   bool _loading = false;
   WeeklyError? _error;
@@ -21,10 +23,17 @@ class ViewWeeklyModel extends ChangeNotifier {
   List<Datum> get weeklyListModel => _weeklyListModel;
   WeeklyError? get error => _error;
   DateTimeRange get dateRange => _dateRange;
+  // GlobalKey get key => _key;
 
   ViewWeeklyModel() {
     getWeeklyList();
     calcDate();
+  }
+
+  // set key
+  setKey(key) {
+    this.key = key;
+    ChangeNotifier;
   }
 
   void calcDate() {

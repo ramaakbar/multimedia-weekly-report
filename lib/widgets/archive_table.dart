@@ -78,14 +78,14 @@ class ArchiveTable extends StatelessWidget {
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
-              child: buildLabel('ID No')),
+              child: buildLabel('Crew ID')),
         ),
         GridColumn(
           columnName: 'name',
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
-              child: buildLabel('Crew')),
+              child: buildLabel('Crew Name')),
         ),
       ];
 
