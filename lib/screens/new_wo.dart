@@ -4,6 +4,7 @@ import 'package:weekly_report/models/workarea_model.dart';
 import 'package:weekly_report/view_models/new_wo_view_model.dart';
 import 'package:weekly_report/widgets/filter_select.dart';
 import 'package:provider/provider.dart';
+import 'package:weekly_report/widgets/refresh_icon.dart';
 
 class NewWo extends StatelessWidget {
   const NewWo({Key? key}) : super(key: key);
@@ -19,13 +20,7 @@ class NewWo extends StatelessWidget {
       appBar: AppBar(
         title: Text('New Multimedia WO'),
         actions: [
-          IconButton(
-            onPressed: () => {
-              // showSearch(context: context, delegate: CustomSearchDelegate())
-              newWo.reset()
-            },
-            icon: Icon(Icons.refresh),
-          ),
+          RefreshIcon(),
         ],
       ),
       body: Container(

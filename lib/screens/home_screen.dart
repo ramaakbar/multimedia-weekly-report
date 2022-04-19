@@ -10,6 +10,7 @@ import 'package:weekly_report/widgets/app_error.dart';
 import 'package:weekly_report/widgets/app_loading.dart';
 import 'package:weekly_report/widgets/filter_select.dart';
 import 'package:provider/provider.dart';
+import 'package:weekly_report/widgets/refresh_icon.dart';
 import 'package:weekly_report/widgets/wo_table.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -25,13 +26,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Multimedia Weekly Report'),
         actions: [
-          IconButton(
-            onPressed: () => {
-              // showSearch(context: context, delegate: CustomSearchDelegate())
-              weeklyViewModel.getWeeklyList()
-            },
-            icon: Icon(Icons.refresh),
-          ),
+          RefreshIcon(),
         ],
       ),
       body: Column(
