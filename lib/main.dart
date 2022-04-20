@@ -5,6 +5,7 @@ import 'package:weekly_report/view_models/archive_view_model.dart';
 import 'package:weekly_report/view_models/bottom_nav_view_model.dart';
 import 'package:weekly_report/view_models/new_wo_view_model.dart';
 import 'package:weekly_report/view_models/report_view_model.dart';
+import 'package:weekly_report/view_models/view_category_view_model.dart';
 import 'package:weekly_report/view_models/view_weekly_model.dart';
 import 'package:weekly_report/view_models/weekly_view_model.dart';
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NewWoViewModel()),
         ChangeNotifierProvider(create: (_) => ArchiveViewModel()),
         ChangeNotifierProvider(create: (_) => ViewWeeklyModel()),
+        ChangeNotifierProvider(create: (_) => ViewCategoryViewModel()),
       ],
       child: MaterialApp(
         title: 'Weekly Report',

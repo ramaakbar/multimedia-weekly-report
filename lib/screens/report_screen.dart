@@ -66,7 +66,7 @@ class ReportScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

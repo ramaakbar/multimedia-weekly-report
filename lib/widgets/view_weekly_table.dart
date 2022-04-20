@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:weekly_report/view_models/view_weekly_model.dart';
@@ -64,11 +66,17 @@ class ViewWeeklyTable extends StatelessWidget {
             ElevatedButton(
                 child: Text('Export to Excel'),
                 onPressed: () async {
-                  final xl.Workbook workbook =
-                      _key.currentState!.exportToExcelWorkbook();
+                  final xl.Workbook workbook = _key.currentState!
+                      .exportToExcelWorkbook(
+                          cellExport: (DataGridCellExcelExportDetails details) {
+                    if (details.cellType ==
+                        DataGridExportCellType.columnHeader) {
+                      details.excelRange.cellStyle.bold = true;
+                    }
+                  });
                   final List<int> bytes = workbook.saveAsStream();
+                  await helper.saveAndLaunchFile(bytes, 'Weekly Report.xlsx');
                   workbook.dispose();
-                  await helper.saveAndLaunchFile(bytes, 'DataGrid.xlsx');
                 }),
           ],
         ),

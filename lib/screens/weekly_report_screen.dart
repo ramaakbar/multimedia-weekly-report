@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weekly_report/screens/tabs/view_category.dart';
 import 'package:weekly_report/screens/tabs/view_weekly.dart';
 import 'package:weekly_report/widgets/refresh_icon.dart';
 
@@ -21,12 +22,10 @@ class WeeklyReportScreen extends StatelessWidget {
             ),
             actions: [RefreshIcon()],
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: <Widget>[
               ViewWeekly(),
-              Center(
-                child: Text("It's rainy here"),
-              ),
+              ViewCategory(),
               Center(
                 child: Text("It's sunny here"),
               ),
