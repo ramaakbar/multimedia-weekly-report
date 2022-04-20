@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Multimedia Weekly Report'),
+        title: const Text('Home'),
         actions: [
           RefreshIcon(),
         ],

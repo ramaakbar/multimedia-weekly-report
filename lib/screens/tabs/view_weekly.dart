@@ -14,8 +14,23 @@ class ViewWeekly extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          Container(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Multimedia Weekly Report',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20.0, 20, 20, 0),
+            padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search',
