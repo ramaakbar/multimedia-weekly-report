@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:weekly_report/view_models/report_view_model.dart';
+import 'package:weekly_report/widgets/add_icon.dart';
 import 'package:weekly_report/widgets/refresh_icon.dart';
 import 'package:weekly_report/widgets/report_list.dart';
 
@@ -17,6 +18,7 @@ class ReportScreen extends StatelessWidget {
         title: Text('Report'),
         actions: [
           RefreshIcon(),
+          AddIcon(),
         ],
       ),
       resizeToAvoidBottomInset: false,

@@ -80,19 +80,19 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async => {
-          newWo.setController(weeklyViewModel
-              .weeklyListModel[weeklyViewModel.weeklyListModel.length - 1]),
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => NewWo(),
-            ),
-          ),
-        },
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async => {
+      //     newWo.setController(weeklyViewModel
+      //         .weeklyListModel[weeklyViewModel.weeklyListModel.length - 1]),
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => NewWo(),
+      //       ),
+      //     ),
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }
