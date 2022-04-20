@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weekly_report/view_models/view_businessunit_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:weekly_report/models/chart_model.dart';
-import 'package:weekly_report/models/report_category_model.dart';
-import 'package:weekly_report/view_models/view_category_view_model.dart';
-import 'package:weekly_report/widgets/category_chart.dart';
-import 'package:weekly_report/widgets/category_table.dart';
-import 'package:weekly_report/widgets/refresh_icon.dart';
+import 'package:weekly_report/widgets/businessunit_chart.dart';
+import 'package:weekly_report/widgets/businessunit_table.dart';
 
-class ViewCategory extends StatelessWidget {
+class ViewBusiness extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ViewCategoryViewModel viewCategoryViewModel =
-        context.watch<ViewCategoryViewModel>();
+    ViewBusinessunitViewModel viewBusinessunitViewModel =
+        context.watch<ViewBusinessunitViewModel>();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -24,7 +21,7 @@ class ViewCategory extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Multimedia Report YTD Completed WO',
+                    'YTD Completed WO by BU',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -40,7 +37,7 @@ class ViewCategory extends StatelessWidget {
                 children: [
                   TextButton(
                     onPressed: () =>
-                        {viewCategoryViewModel.previousDateRange()},
+                        {viewBusinessunitViewModel.previousDateRange()},
                     child: Row(
                       children: const [
                         Icon(Icons.chevron_left),
@@ -49,11 +46,12 @@ class ViewCategory extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${DateFormat('MM/dd/yyyy').format(viewCategoryViewModel.dateRange.start)} - ${DateFormat('MM/dd/yyyy').format(viewCategoryViewModel.dateRange.end)}',
+                    '${DateFormat('MM/dd/yyyy').format(viewBusinessunitViewModel.dateRange.start)} - ${DateFormat('MM/dd/yyyy').format(viewBusinessunitViewModel.dateRange.end)}',
                     style: TextStyle(fontSize: 16),
                   ),
                   TextButton(
-                    onPressed: () => {viewCategoryViewModel.nextDateRange()},
+                    onPressed: () =>
+                        {viewBusinessunitViewModel.nextDateRange()},
                     child: Row(
                       children: const [
                         // Text('Next'),
@@ -69,19 +67,12 @@ class ViewCategory extends StatelessWidget {
               child:
                   // set  height to be the same as table content height
 
-                  CategoryTable(),
+                  BusinessunitTable(),
             ),
-            CategoryChart(),
+            BusinessunitChart(),
           ],
         ),
       ),
     );
   }
-}
-
-class ChartData {
-  ChartData(this.x, this.y, [this.color]);
-  final String x;
-  final double y;
-  final Color? color;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weekly_report/screens/tabs/view_business.dart';
 import 'package:weekly_report/screens/tabs/view_category.dart';
 import 'package:weekly_report/screens/tabs/view_weekly.dart';
 import 'package:weekly_report/widgets/refresh_icon.dart';
@@ -26,9 +27,7 @@ class WeeklyReportScreen extends StatelessWidget {
             children: <Widget>[
               ViewWeekly(),
               ViewCategory(),
-              Center(
-                child: Text("It's sunny here"),
-              ),
+              ViewBusiness(),
               Center(
                 child: Text("It's sunny here"),
               ),
