@@ -46,6 +46,8 @@ class Datum {
         "id_ptfi": idPtfi,
         "username": username,
       };
+  @override
+  String toString() => username;
 }
 
 class Status {

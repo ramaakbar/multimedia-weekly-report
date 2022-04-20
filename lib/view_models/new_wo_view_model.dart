@@ -125,6 +125,11 @@ class NewWoViewModel extends ChangeNotifier {
     }
   }
 
+  bool reqSearch(String value) {
+    return _requestorList.any((element) =>
+        element.username.toLowerCase().contains(value.toLowerCase()));
+  }
+
   getWorkAreaList() async {
     if (workAreaList.isEmpty) {
       var response = await WeeklyServices.getWorkArea();

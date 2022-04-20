@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weekly_report/models/karyawan_model.dart';
 import 'package:weekly_report/view_models/new_wo_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:weekly_report/widgets/refresh_icon.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:http/http.dart' as http;
 
 class NewWo extends StatelessWidget {
   const NewWo({Key? key}) : super(key: key);
@@ -150,6 +153,32 @@ class NewWo extends StatelessWidget {
   }
 }
 
+// class RequestorDropdown extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Consumer(builder: (
+//       context,
+//       NewWoViewModel newWo,
+//       child,
+//     ) {
+//       return DropdownButtonFormField(
+//         decoration: const InputDecoration(
+//           border: OutlineInputBorder(),
+//           labelText: 'Requestor',
+//         ),
+//         value: newWo.selectedRequestor,
+//         onChanged: <String>(String value) {
+//           newWo.setSelectedRequestor(value.toString());
+//         },
+//         items: newWo.requestorList
+//             .map((e) => DropdownMenuItem(
+//                 child: Text('${e.username}'), value: e.username))
+//             .toList(),
+//       );
+//     });
+//   }
+// }
+
 class RequestorDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -158,20 +187,43 @@ class RequestorDropdown extends StatelessWidget {
       NewWoViewModel newWo,
       child,
     ) {
-      return DropdownButtonFormField(
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: 'Requestor',
-        ),
-        value: newWo.selectedRequestor,
-        onChanged: <String>(String value) {
-          newWo.setSelectedRequestor(value.toString());
-        },
-        items: newWo.requestorList
-            .map((e) => DropdownMenuItem(
-                child: Text('${e.username}'), value: e.username))
-            .toList(),
-      );
+      return DropdownSearch<Datum>(
+          // decoration: const InputDecoration(
+          //   border: OutlineInputBorder(),
+          //   labelText: 'Requestor',
+          // ),
+          label: 'Requestor',
+          mode: Mode.DIALOG,
+          showSearchBox: true,
+          // showSelectedItem: true,
+
+          onChanged: <String>(String value) {
+            newWo.setSelectedRequestor(value.toString());
+          },
+          dropdownBuilder: (context, selectedItem, test) =>
+              Text(selectedItem?.username ?? 'Select Requestor'),
+          popupItemBuilder: (context, item, isSelected) =>
+              ListTile(title: Text(item.username)),
+          onFind: (text) async {
+            var url =
+                Uri.parse('http://10.0.2.2:40/weekly_api/api/get_karyawan.php');
+            var response = await http.get(url);
+
+            if (response.statusCode != 200) {
+              return [];
+            }
+            List req = karyawanFromJson(response.body).data;
+            List<Datum> allModelReq = [];
+
+            req.forEach((element) {
+              //mengubah data json ke model
+              allModelReq.add(Datum(
+                idPtfi: element.idPtfi,
+                username: element.username,
+              ));
+            });
+            return allModelReq;
+          });
     });
   }
 }
