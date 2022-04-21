@@ -26,6 +26,12 @@ class RefreshIcon extends StatelessWidget {
         Provider.of<ViewBusinessunitViewModel>(context, listen: false)
             .getReportBusiness();
         Provider.of<ViewCrewViewModel>(context, listen: false).getReportCrew();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Refreshed'),
+            duration: const Duration(milliseconds: 1500),
+          ),
+        );
       },
     );
   }

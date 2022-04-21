@@ -11,8 +11,11 @@ class AddIcon extends StatelessWidget {
     NewWoViewModel newWo = context.watch<NewWoViewModel>();
     return IconButton(
         onPressed: () async {
-          newWo.setController(weeklyViewModel
-              .weeklyListModel[weeklyViewModel.weeklyListModel.length - 1]);
+          if (weeklyViewModel.weeklyListModel.isNotEmpty) {
+            newWo.setController(weeklyViewModel
+                .weeklyListModel[weeklyViewModel.weeklyListModel.length - 1]);
+          }
+
           Navigator.push(
             context,
             MaterialPageRoute(

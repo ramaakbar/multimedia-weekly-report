@@ -140,6 +140,12 @@ class NewWo extends StatelessWidget {
                   return;
                 }
                 Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('WO added'),
+                    duration: const Duration(milliseconds: 1500),
+                  ),
+                );
               },
               child: Text('Submit'),
             ),
