@@ -29,7 +29,7 @@ class WeeklyDatatableSource extends DataGridSource {
               [
             DataGridCell(
               value: i++,
-              columnName: 'No',
+              columnName: 'no',
             ),
             DataGridCell(
               value: data.workArea,
@@ -58,15 +58,19 @@ class WeeklyDatatableSource extends DataGridSource {
             ),
             DataGridCell(
               value: data.idPtfi,
-              columnName: 'idPtfi',
+              columnName: 'idNo',
             ),
             DataGridCell(
               value: data.devAction,
-              columnName: 'devAction',
+              columnName: 'action',
             ),
             DataGridCell(
               value: data.name,
-              columnName: 'name',
+              columnName: 'crew',
+            ),
+            DataGridCell(
+              value: data.requestor,
+              columnName: 'requestor',
             ),
             DataGridCell(
               // value: '${data.progress}%',

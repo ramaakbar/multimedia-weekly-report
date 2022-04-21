@@ -48,6 +48,7 @@ class Datum {
     this.startDate,
     this.endDate,
     this.businessUnit,
+    this.requestor,
   });
 
   String? workArea;
@@ -63,6 +64,7 @@ class Datum {
   DateTime? startDate;
   DateTime? endDate;
   String? businessUnit;
+  String? requestor;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         workArea: json["work_area"] == null ? null : json["work_area"],
@@ -84,6 +86,8 @@ class Datum {
             json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
         businessUnit:
             json["business_unit"] == null ? null : json["business_unit"],
+        requestor:
+            json["requestor_name"] == null ? null : json["requestor_name"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -106,6 +110,7 @@ class Datum {
             ? null
             : "${endDate?.year.toString().padLeft(4, '0')}-${endDate?.month.toString().padLeft(2, '0')}-${endDate?.day.toString().padLeft(2, '0')}",
         "business_unit": businessUnit == null ? null : businessUnit,
+        "requestor": requestor == null ? null : requestor,
       };
 }
 
