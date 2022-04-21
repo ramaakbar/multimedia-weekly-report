@@ -128,7 +128,7 @@ class ReportViewModel extends ChangeNotifier {
                   .isBefore(_endDate.add(const Duration(days: 1))),
         )
         .toList();
-    print(_weeklyListModel);
+    // print(_weeklyListModel);
     notifyListeners();
   }
 

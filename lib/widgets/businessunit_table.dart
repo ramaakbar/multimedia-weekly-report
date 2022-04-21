@@ -64,7 +64,7 @@ class BusinessunitTable extends StatelessWidget {
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
-              child: buildLabel('Count')),
+              child: buildLabel('Sum of WO')),
         )
       ];
 

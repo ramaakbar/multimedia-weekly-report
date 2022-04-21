@@ -5,6 +5,7 @@ import 'package:weekly_report/view_models/new_wo_view_model.dart';
 import 'package:weekly_report/view_models/report_view_model.dart';
 import 'package:weekly_report/view_models/view_businessunit_view_model.dart';
 import 'package:weekly_report/view_models/view_category_view_model.dart';
+import 'package:weekly_report/view_models/view_crew_view_model.dart';
 import 'package:weekly_report/view_models/view_weekly_model.dart';
 import 'package:weekly_report/view_models/weekly_view_model.dart';
 
@@ -24,6 +25,7 @@ class RefreshIcon extends StatelessWidget {
             .getReportCategory();
         Provider.of<ViewBusinessunitViewModel>(context, listen: false)
             .getReportBusiness();
+        Provider.of<ViewCrewViewModel>(context, listen: false).getReportCrew();
       },
     );
   }

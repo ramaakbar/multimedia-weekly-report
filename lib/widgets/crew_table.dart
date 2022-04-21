@@ -2,25 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:provider/provider.dart';
 import 'package:weekly_report/view_models/view_category_view_model.dart';
+import 'package:weekly_report/view_models/view_crew_view_model.dart';
 import 'package:weekly_report/widgets/app_loading.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
 import 'app_error.dart';
 
-class CategoryTable extends StatelessWidget {
+class CrewTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ViewCategoryViewModel cat = context.watch<ViewCategoryViewModel>();
-    if (cat.loading) {
+    ViewCrewViewModel crew = context.watch<ViewCrewViewModel>();
+    if (crew.loading) {
       return AppLoading();
     }
-    if (cat.error != null) {
+    if (crew.error != null) {
       return AppError(
-        errortxt: cat.error?.message,
+        errortxt: crew.error?.message,
       );
     }
 
-    if (cat.categoryListModel.isEmpty) {
+    if (crew.crewListModel.isEmpty) {
       return Center(
         child: Text('No data found'),
       );
@@ -33,9 +34,9 @@ class CategoryTable extends StatelessWidget {
         headerGridLinesVisibility: GridLinesVisibility.horizontal,
         columnWidthMode: ColumnWidthMode.lastColumnFill,
         columnWidthCalculationRange: ColumnWidthCalculationRange.allRows,
-        source: cat.viewCategoryDatatableSource,
+        source: crew.viewCrewDatatableSource,
         // set footer sum of count column;
-        footer: Center(child: Text('Total: ${cat.sum}')),
+        footer: Center(child: Text('Total: ${crew.sum}')),
         footerFrozenRowsCount: 1,
         // source: weeklyViewModel.weeklyDataSource,
         columns: buildGridColumns(),
@@ -56,7 +57,7 @@ class CategoryTable extends StatelessWidget {
           label: Container(
               padding: EdgeInsets.all(5),
               alignment: Alignment.centerLeft,
-              child: buildLabel('Category')),
+              child: buildLabel('Crew')),
         ),
         GridColumn(
           columnName: 'count',
