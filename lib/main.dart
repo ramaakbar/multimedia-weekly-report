@@ -16,8 +16,18 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  final lightScheme = ThemeData(
+    useMaterial3: true,
+    colorSchemeSeed: Colors.indigo,
+    brightness: Brightness.light,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+  );
+  final darkScheme = ThemeData(
+    useMaterial3: true,
+    colorSchemeSeed: Colors.indigo,
+    brightness: Brightness.dark,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+  );
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -34,11 +44,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Weekly Report',
-        theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          brightness: Brightness.light,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        theme: lightScheme,
         home: Template(),
       ),
     );
