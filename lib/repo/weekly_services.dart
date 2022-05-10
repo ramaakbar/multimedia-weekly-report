@@ -18,7 +18,6 @@ class WeeklyServices {
     try {
       var url = Uri.parse(
           'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_weekly.php');
-
       var response = await http.get(url);
       // var response =
       //     await Future.delayed(Duration(seconds: 5), () => http.get(url));

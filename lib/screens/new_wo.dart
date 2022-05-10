@@ -211,8 +211,8 @@ class RequestorDropdown extends StatelessWidget {
           popupItemBuilder: (context, item, isSelected) =>
               ListTile(title: Text(item.username)),
           onFind: (text) async {
-            var url =
-                Uri.parse('http://10.0.2.2:40/weekly_api/api/get_karyawan.php');
+            var url = Uri.parse(
+                'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_karyawan.php');
             var response = await http.get(url);
 
             if (response.statusCode != 200) {

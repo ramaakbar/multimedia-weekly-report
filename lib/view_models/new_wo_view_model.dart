@@ -63,9 +63,10 @@ class NewWoViewModel extends ChangeNotifier {
   // set wo number text field to the latest wo number
   void setController(wm.Datum wo) {
     // get the latest wo Number from list of wo + 1
-    _woController.text = wo.woNumber!.split('/')[0] +
-        '/' +
-        (int.parse(wo.woNumber!.split('/')[1]) + 1).toString();
+    // _woController.text = wo.woNumber!.split('/')[0] +
+    //     '/' +
+    //     (int.parse(wo.woNumber!.split('/')[1]) + 1).toString();
+    _woController.text = (int.parse(wo.woNumber!) + 1).toString();
 
     _woNumber = ValidationItem(_woController.text, '');
   }
