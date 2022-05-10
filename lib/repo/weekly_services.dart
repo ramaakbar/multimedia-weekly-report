@@ -16,7 +16,9 @@ import 'package:http/http.dart' as http;
 class WeeklyServices {
   static Future<Object> getWeekly() async {
     try {
-      var url = Uri.parse('http://10.0.2.2:40/weekly_api/api/get_weekly.php');
+      var url = Uri.parse(
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_weekly.php');
+
       var response = await http.get(url);
       // var response =
       //     await Future.delayed(Duration(seconds: 5), () => http.get(url));
@@ -34,13 +36,14 @@ class WeeklyServices {
     } on FormatException {
       return Failure(code: INVALID_FORMAT, errorResponse: 'Invalid Format');
     } catch (e) {
-      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknow Error');
+      return e;
     }
   }
 
   static Future<Object> getKaryawan() async {
     try {
-      var url = Uri.parse('http://10.0.2.2:40/weekly_api/api/get_karyawan.php');
+      var url = Uri.parse(
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_karyawan.php');
       var response = await http.get(url);
       // var response =
       //     await Future.delayed(Duration(seconds: 5), () => http.get(url));
@@ -64,7 +67,8 @@ class WeeklyServices {
 
   static Future<Object> getWorkArea() async {
     try {
-      var url = Uri.parse('http://10.0.2.2:40/weekly_api/api/get_workarea.php');
+      var url = Uri.parse(
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_workarea.php');
       var response = await http.get(url);
       return Success(response: wa.workAreaModelFromJson(response.body).data);
     } catch (e) {
@@ -74,7 +78,8 @@ class WeeklyServices {
 
   static Future<Object> getCrew() async {
     try {
-      var url = Uri.parse('http://10.0.2.2:40/weekly_api/api/get_crew.php');
+      var url = Uri.parse(
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_crew.php');
       var response = await http.get(url);
       return Success(response: cm.crewModelFromJson(response.body).data);
     } catch (e) {
@@ -84,7 +89,8 @@ class WeeklyServices {
 
   static Future<Object> getBusiness() async {
     try {
-      var url = Uri.parse('http://10.0.2.2:40/weekly_api/api/get_business.php');
+      var url = Uri.parse(
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_business.php');
       var response = await http.get(url);
       return Success(response: bu.businessUnitFromJson(response.body).data);
     } catch (e) {
@@ -94,7 +100,8 @@ class WeeklyServices {
 
   static Future<Object> postWeekly(Map data) async {
     try {
-      var url = Uri.parse('http://10.0.2.2:40/weekly_api/api/post_weekly.php');
+      var url = Uri.parse(
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/post_weekly.php');
 
       var body = jsonEncode(data);
 
@@ -124,8 +131,8 @@ class WeeklyServices {
 
   static Future<Object> deleteWeekly(String id) async {
     try {
-      var url =
-          Uri.parse('http://10.0.2.2:40/weekly_api/api/delete_weekly.php');
+      var url = Uri.parse(
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/delete_weekly.php');
 
       var body = jsonEncode({'wo_number': id});
 
@@ -155,8 +162,8 @@ class WeeklyServices {
 
   static Future<Object> updateWeekly(Map data) async {
     try {
-      var url =
-          Uri.parse('http://10.0.2.2:40/weekly_api/api/update_weekly.php');
+      var url = Uri.parse(
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/update_weekly.php');
       var body = jsonEncode(data);
 
       var response = await http.post(
@@ -187,7 +194,7 @@ class WeeklyServices {
     try {
       final queryParameters = par;
       var url = Uri.parse(
-          'http://10.0.2.2:40/weekly_api/api/get_report_category.php?start_date=${queryParameters['startDate']}&end_date=${queryParameters['endDate']}');
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_report_category.php?start_date=${queryParameters['startDate']}&end_date=${queryParameters['endDate']}');
       var response = await http.get(url);
       // var response =
       //     await Future.delayed(Duration(seconds: 5), () => http.get(url));
@@ -214,7 +221,7 @@ class WeeklyServices {
     try {
       final queryParameters = par;
       var url = Uri.parse(
-          'http://10.0.2.2:40/weekly_api/api/get_report_crew.php?start_date=${queryParameters['startDate']}&end_date=${queryParameters['endDate']}');
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_report_crew.php?start_date=${queryParameters['startDate']}&end_date=${queryParameters['endDate']}');
       var response = await http.get(url);
       // var response =
       //     await Future.delayed(Duration(seconds: 5), () => http.get(url));
@@ -241,7 +248,7 @@ class WeeklyServices {
     try {
       final queryParameters = par;
       var url = Uri.parse(
-          'http://10.0.2.2:40/weekly_api/api/get_report_businessUnit.php?start_date=${queryParameters['startDate']}&end_date=${queryParameters['endDate']}');
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_report_businessUnit.php?start_date=${queryParameters['startDate']}&end_date=${queryParameters['endDate']}');
       var response = await http.get(url);
       // var response =
       //     await Future.delayed(Duration(seconds: 5), () => http.get(url));
