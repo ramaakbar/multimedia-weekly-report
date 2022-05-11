@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:weekly_report/models/weekly_model.dart';
+import 'package:weekly_report/models/archive_model.dart';
 
 enum ProjectWoColumn {
   no,
@@ -37,7 +37,7 @@ class ArchiveDatatableSource extends DataGridSource {
               columnName: 'progress',
             ),
             DataGridCell(
-              value: data.idPtfi,
+              value: data.assigned,
               columnName: 'idPtfi',
             ),
             DataGridCell(

@@ -9,6 +9,7 @@ import 'package:weekly_report/models/businessUnit_model.dart' as bu;
 import 'package:weekly_report/models/report_category_model.dart' as rc;
 import 'package:weekly_report/models/report_businessunit_model.dart' as rb;
 import 'package:weekly_report/models/report_crew_model.dart' as rcrew;
+import 'package:weekly_report/models/archive_model.dart' as archive;
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/utils/constants.dart';
 import 'package:http/http.dart' as http;
@@ -267,6 +268,32 @@ class WeeklyServices {
       return Failure(code: INVALID_FORMAT, errorResponse: 'Invalid Format');
     } catch (e) {
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Unknow Error');
+    }
+  }
+
+  static Future<Object> getArchive() async {
+    try {
+      var url = Uri.parse(
+          'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_archive.php');
+      var response = await http.get(url);
+      // var response =
+      //     await Future.delayed(Duration(seconds: 5), () => http.get(url));
+
+      if (response.statusCode == SUCCESS) {
+        return Success(
+            response: archive.weeklyModelFromJson(response.body).data);
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'No Data');
+    } on HttpException {
+      return Failure(
+          code: NO_INTERNET, errorResponse: 'No Internet Connection');
+    } on SocketException {
+      return Failure(
+          code: NO_INTERNET, errorResponse: 'No Internet Connection');
+    } on FormatException {
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Invalid Format');
+    } catch (e) {
+      return e;
     }
   }
 }

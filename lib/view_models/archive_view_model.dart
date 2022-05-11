@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weekly_report/models/weekly_error.dart';
-import 'package:weekly_report/models/weekly_model.dart';
+import 'package:weekly_report/models/archive_model.dart';
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/repo/weekly_services.dart';
 import 'package:weekly_report/utils/archive_datatable_source.dart';
@@ -62,7 +62,7 @@ class ArchiveViewModel extends ChangeNotifier {
 
   getArchiveList() async {
     setloading(true);
-    var response = await WeeklyServices.getWeekly();
+    var response = await WeeklyServices.getArchive();
     if (response is Success) {
       setArchiveList(response.response as List<Datum>);
       unsetError();
