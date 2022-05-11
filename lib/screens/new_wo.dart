@@ -26,7 +26,7 @@ class NewWo extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-        child: ListView(
+        child: Column(
           children: [
             const SizedBox(
               height: 20.0,

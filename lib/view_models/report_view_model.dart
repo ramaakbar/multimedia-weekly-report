@@ -125,7 +125,8 @@ class ReportViewModel extends ChangeNotifier {
               element.dateSubmit!
                   .isAfter(_startDate.subtract(const Duration(days: 1))) &&
               element.dateSubmit!
-                  .isBefore(_endDate.add(const Duration(days: 1))),
+                  .isBefore(_endDate.add(const Duration(days: 1))) &&
+              int.parse(element.progress!) != 100,
         )
         .toList();
     // print(_weeklyListModel);
