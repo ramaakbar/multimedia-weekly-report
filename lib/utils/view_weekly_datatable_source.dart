@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:weekly_report/models/weekly_model.dart';
+import 'package:weekly_report/models/report_weekly_model.dart';
 
 class ViewWeeklyDatatableSource extends DataGridSource {
   int i = 1;
@@ -55,10 +55,10 @@ class ViewWeeklyDatatableSource extends DataGridSource {
               value: data.devAction,
               columnName: 'Action',
             ),
-            DataGridCell(
-              value: data.workArea,
-              columnName: 'Work Area',
-            ),
+            // DataGridCell(
+            //   value: data.workArea,
+            //   columnName: 'Work Area',
+            // ),
             // DataGridCell(
             //   value: data.name,
             //   columnName: 'crew',

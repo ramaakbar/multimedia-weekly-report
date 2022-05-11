@@ -173,13 +173,13 @@ class ViewWeeklyTable extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: buildLabel('Action')),
         ),
-        GridColumn(
-          columnName: 'Work Area',
-          label: Container(
-              padding: EdgeInsets.all(5),
-              alignment: Alignment.centerLeft,
-              child: buildLabel('Work Area')),
-        ),
+        // GridColumn(
+        //   columnName: 'Work Area',
+        //   label: Container(
+        //       padding: EdgeInsets.all(5),
+        //       alignment: Alignment.centerLeft,
+        //       child: buildLabel('Work Area')),
+        // ),
         // GridColumn(
         //   columnName: 'crew',
         //   label: Container(

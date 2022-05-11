@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:weekly_report/models/weekly_error.dart';
-import 'package:weekly_report/models/weekly_model.dart';
+import 'package:weekly_report/models/report_weekly_model.dart';
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/repo/weekly_services.dart';
 import 'package:weekly_report/utils/view_weekly_datatable_source.dart';
@@ -52,10 +53,10 @@ class ViewWeeklyModel extends ChangeNotifier {
     viewWeeklyDataSource = ViewWeeklyDatatableSource(
         data: weeklyListModel
             .where((element) =>
-                element.woNumber!.toLowerCase().contains(value) ||
-                element.workArea!.toLowerCase().contains(value) ||
+                element.businessUnit!.toLowerCase().contains(value) ||
                 element.projectName!.toLowerCase().contains(value) ||
-                element.name!.toLowerCase().contains(value))
+                element.progress!.toLowerCase().contains(value) ||
+                element.devAction!.toLowerCase().contains(value))
             .toList());
 
     notifyListeners();
@@ -97,20 +98,18 @@ class ViewWeeklyModel extends ChangeNotifier {
   setWeeklyList(List<Datum> weeklyListModel) {
     // _weeklyListModel = weeklyListModel;
     // filter data based on date range
-    _weeklyListModel = weeklyListModel
-        .where((element) =>
-            element.dateSubmit!
-                .isAfter(_dateRange.start.subtract(const Duration(days: 1))) &&
-            element.dateSubmit!
-                .isBefore(_dateRange.end.add(const Duration(days: 1))))
-        .toList();
+    _weeklyListModel = weeklyListModel;
     viewWeeklyDataSource = ViewWeeklyDatatableSource(data: _weeklyListModel);
     notifyListeners();
   }
 
   getWeeklyList() async {
     setloading(true);
-    var response = await WeeklyServices.getWeekly();
+    Map par = {
+      "startDate": DateFormat('yyyy/MM/dd').format(_dateRange.start),
+      "endDate": DateFormat('yyyy/MM/dd').format(_dateRange.end),
+    };
+    var response = await WeeklyServices.getReportWeekly(par);
     if (response is Success) {
       setWeeklyList(response.response as List<Datum>);
       unsetError();

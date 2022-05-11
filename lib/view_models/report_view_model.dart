@@ -134,6 +134,7 @@ class ReportViewModel extends ChangeNotifier {
 
   getWeeklyList() async {
     setloading(true);
+
     var response = await WeeklyServices.getWeekly();
     if (response is Success) {
       setWeeklyList(response.response as List<wm.Datum>);
