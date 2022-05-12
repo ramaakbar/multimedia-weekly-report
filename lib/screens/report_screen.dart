@@ -106,7 +106,7 @@ class CrewDropdown extends StatelessWidget {
           crew.setSelectedCrew(value.toString());
         },
         items: crew.crewList
-            .map((e) => DropdownMenuItem(child: Text(e.name), value: e.name))
+            .map((e) => DropdownMenuItem(child: Text(e.name), value: e.idPtfi))
             .toList(),
       );
     });

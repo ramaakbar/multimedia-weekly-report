@@ -31,7 +31,7 @@ class ReportList extends StatelessWidget {
           leading: Text(report.weeklyListModel[index].woNumber!,
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
           title: Text(
-            '${report.weeklyListModel[index].projectName} ${report.weeklyListModel[index].progress}%',
+            '${report.weeklyListModel[index].projectName} - ${report.weeklyListModel[index].progress}%',
           ),
           subtitle: Text(
               '${DateFormat('MM/dd/yyyy').format(report.weeklyListModel[index].startDate!).toString()} - ${DateFormat('MM/dd/yyyy').format(report.weeklyListModel[index].endDate!).toString()}'),
@@ -100,20 +100,20 @@ class updateDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
-                controller: report.actionController,
+                // controller: report.actionController,
                 decoration: InputDecoration(
-                  labelText: 'Dev. Action',
-                  border: OutlineInputBorder(),
-                )),
+              labelText: 'Dev. Action',
+              border: OutlineInputBorder(),
+            )),
             SizedBox(
               height: 20,
             ),
             TextField(
-                controller: report.hoursController,
+                // controller: report.hoursController,
                 decoration: InputDecoration(
-                  labelText: 'Manhours',
-                  border: OutlineInputBorder(),
-                )),
+              labelText: 'Manhours',
+              border: OutlineInputBorder(),
+            )),
             SizedBox(
               height: 20,
             ),
@@ -128,7 +128,7 @@ class updateDialog extends StatelessWidget {
             ),
             TextField(
                 maxLines: 4,
-                controller: report.activityController,
+                // controller: report.activityController,
                 decoration: InputDecoration(
                   labelText: 'Activity',
                   border: OutlineInputBorder(),

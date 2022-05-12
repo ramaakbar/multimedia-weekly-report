@@ -3,11 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:weekly_report/models/weekly_error.dart';
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/repo/weekly_services.dart';
-import 'package:weekly_report/models/weekly_model.dart' as wm;
+import 'package:weekly_report/models/crewReport_model.dart' as cr;
 
 class ReportViewModel extends ChangeNotifier {
   String? _selectedCrew = null;
-  wm.Datum? _selectedWo;
+  cr.Datum? _selectedWo;
   List _crewList = [];
   bool _loading = false;
   WeeklyError? _error;
@@ -15,7 +15,7 @@ class ReportViewModel extends ChangeNotifier {
   //     start: DateTime.now(), end: DateTime.now().add(Duration(days: 7)));
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now().add(Duration(days: 7));
-  List<wm.Datum> _weeklyListModel = [];
+  List<cr.Datum> _weeklyListModel = [];
   Map data = {};
   final _actionController = TextEditingController();
   final _hoursController = TextEditingController();
@@ -26,9 +26,9 @@ class ReportViewModel extends ChangeNotifier {
   DateTime get startDate => _startDate;
   DateTime get endDate => _endDate;
   String? get selectedCrew => _selectedCrew;
-  wm.Datum? get selectedWo => _selectedWo;
+  cr.Datum? get selectedWo => _selectedWo;
   List get crewList => _crewList;
-  List<wm.Datum> get weeklyListModel => _weeklyListModel;
+  List<cr.Datum> get weeklyListModel => _weeklyListModel;
   bool get loading => _loading;
   WeeklyError? get error => _error;
   get actionController => _actionController;
@@ -41,7 +41,7 @@ class ReportViewModel extends ChangeNotifier {
     getWeeklyList();
   }
 
-  setSelectedWo(wm.Datum wo) {
+  setSelectedWo(cr.Datum wo) {
     _selectedWo = wo;
     _actionController.text = wo.devAction?.toString() ?? 'null';
     _hoursController.text = wo.manHours.toString();
@@ -116,18 +116,18 @@ class ReportViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  setWeeklyList(List<wm.Datum> weeklyListModel) {
+  setWeeklyList(List<cr.Datum> weeklyListModel) {
     // _weeklyListModel = weeklyListModel;
     // filter data based on date range
     _weeklyListModel = weeklyListModel
         .where(
           (element) =>
-              element.name == selectedCrew &&
-              element.dateSubmit!
-                  .isAfter(_startDate.subtract(const Duration(days: 1))) &&
-              element.dateSubmit!
-                  .isBefore(_endDate.add(const Duration(days: 1))) &&
-              int.parse(element.progress!) != 100,
+              element.name == selectedCrew && element.woNumber != 'text',
+          // element.dateSubmit!
+          //     .isAfter(_startDate.subtract(const Duration(days: 1))) &&
+          // element.dateSubmit!
+          //     .isBefore(_endDate.add(const Duration(days: 1)))
+          // ,
         )
         .toList();
     // print(_weeklyListModel);
@@ -137,9 +137,9 @@ class ReportViewModel extends ChangeNotifier {
   getWeeklyList() async {
     setloading(true);
 
-    var response = await WeeklyServices.getWeekly();
+    var response = await WeeklyServices.getCrewReport();
     if (response is Success) {
-      setWeeklyList(response.response as List<wm.Datum>);
+      setWeeklyList(response.response as List<cr.Datum>);
       unsetError();
     }
     if (response is Failure) {
