@@ -50,6 +50,7 @@ class Datum {
     this.endDate,
     this.businessUnit,
     this.requestor,
+    this.username,
   });
   String? id;
   String? workArea;
@@ -66,6 +67,7 @@ class Datum {
   DateTime? endDate;
   String? businessUnit;
   String? requestor;
+  String? username;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"] == null ? null : json["id"],
@@ -90,6 +92,7 @@ class Datum {
             json["business_unit"] == null ? null : json["business_unit"],
         requestor:
             json["requestor_name"] == null ? null : json["requestor_name"],
+        username: json["username"] == null ? null : json["username"],
       );
 
   Map<String, dynamic> toJson() => {

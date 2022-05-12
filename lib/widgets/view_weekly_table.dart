@@ -91,7 +91,11 @@ class ViewWeeklyTable extends StatelessWidget {
               gridLinesVisibility: GridLinesVisibility.horizontal,
               headerGridLinesVisibility: GridLinesVisibility.horizontal,
               columnWidthMode: ColumnWidthMode.lastColumnFill,
-              columnWidthCalculationRange: ColumnWidthCalculationRange.allRows,
+              columnWidthCalculationRange:
+                  ColumnWidthCalculationRange.visibleRows,
+              onQueryRowHeight: (details) {
+                return details.getIntrinsicRowHeight(details.rowIndex);
+              },
               source: viewWeekly.viewWeeklyDataSource,
               columns: buildGridColumns(),
             ),

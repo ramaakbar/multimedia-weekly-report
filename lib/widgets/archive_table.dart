@@ -33,9 +33,12 @@ class ArchiveTable extends StatelessWidget {
       child: SfDataGrid(
         gridLinesVisibility: GridLinesVisibility.horizontal,
         headerGridLinesVisibility: GridLinesVisibility.horizontal,
-        columnWidthMode: ColumnWidthMode.lastColumnFill,
-        columnWidthCalculationRange: ColumnWidthCalculationRange.allRows,
+        columnWidthMode: ColumnWidthMode.auto,
+        columnWidthCalculationRange: ColumnWidthCalculationRange.visibleRows,
         source: archive.archiveDataSource,
+        onQueryRowHeight: (details) {
+          return details.getIntrinsicRowHeight(20);
+        },
         // source: weeklyViewModel.weeklyDataSource,
         columns: buildGridColumns(),
       ),

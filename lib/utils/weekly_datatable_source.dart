@@ -69,7 +69,7 @@ class WeeklyDatatableSource extends DataGridSource {
               columnName: 'crew',
             ),
             DataGridCell(
-              value: data.requestor,
+              value: data.username,
               columnName: 'requestor',
             ),
             DataGridCell(
