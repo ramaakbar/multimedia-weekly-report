@@ -100,20 +100,20 @@ class updateDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
-                // controller: report.actionController,
+                controller: report.actionController,
                 decoration: InputDecoration(
-              labelText: 'Dev. Action',
-              border: OutlineInputBorder(),
-            )),
+                  labelText: 'Dev. Action',
+                  border: OutlineInputBorder(),
+                )),
             SizedBox(
               height: 20,
             ),
             TextField(
-                // controller: report.hoursController,
+                controller: report.hoursController,
                 decoration: InputDecoration(
-              labelText: 'Manhours',
-              border: OutlineInputBorder(),
-            )),
+                  labelText: 'Manhours',
+                  border: OutlineInputBorder(),
+                )),
             SizedBox(
               height: 20,
             ),
@@ -128,7 +128,7 @@ class updateDialog extends StatelessWidget {
             ),
             TextField(
                 maxLines: 4,
-                // controller: report.activityController,
+                controller: report.activityController,
                 decoration: InputDecoration(
                   labelText: 'Activity',
                   border: OutlineInputBorder(),

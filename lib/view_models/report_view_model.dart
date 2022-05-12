@@ -39,14 +39,17 @@ class ReportViewModel extends ChangeNotifier {
   ReportViewModel() {
     getCrewList();
     getWeeklyList();
+    _actionController.text = '';
+    _hoursController.text = '';
+    _activityController.text = '';
   }
 
   setSelectedWo(cr.Datum wo) {
     _selectedWo = wo;
-    _actionController.text = wo.devAction?.toString() ?? 'null';
-    _hoursController.text = wo.manHours.toString();
+    // _actionController.text = wo.devAction?.toString() ?? 'null';
+    // _hoursController.text = wo.manHours.toString();
     _progressController.text = wo.progress.toString();
-    _activityController.text = wo.activity?.toString() ?? 'null';
+    // _activityController.text = wo.activity?.toString() ?? 'null';
     notifyListeners();
   }
 
@@ -162,7 +165,7 @@ class ReportViewModel extends ChangeNotifier {
   updateWeekly() async {
     data.addAll({
       'id': _selectedWo?.id,
-      'id_ptfi': _selectedWo?.idPtfi,
+      'id_ptfi': selectedCrew,
       'wo_number': _selectedWo?.woNumber,
       'dev_action': _actionController.text,
       'man_hours': _hoursController.text,
@@ -171,6 +174,10 @@ class ReportViewModel extends ChangeNotifier {
       'date_submit': DateFormat('yyyy/MM/dd').format(DateTime.now()),
     });
     var response = await WeeklyServices.updateWeekly(data);
+    _actionController.text = '';
+    _hoursController.text = '';
+    _activityController.text = '';
+    getWeeklyList();
     return response;
   }
 }
