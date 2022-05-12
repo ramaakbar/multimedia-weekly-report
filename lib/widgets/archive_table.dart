@@ -37,7 +37,7 @@ class ArchiveTable extends StatelessWidget {
         columnWidthCalculationRange: ColumnWidthCalculationRange.visibleRows,
         source: archive.archiveDataSource,
         onQueryRowHeight: (details) {
-          return details.getIntrinsicRowHeight(20);
+          return details.getIntrinsicRowHeight(details.rowIndex);
         },
         // source: weeklyViewModel.weeklyDataSource,
         columns: buildGridColumns(),
