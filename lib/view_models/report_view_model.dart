@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weekly_report/models/weekly_error.dart';
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/repo/weekly_services.dart';
@@ -160,11 +161,14 @@ class ReportViewModel extends ChangeNotifier {
   // update weekly
   updateWeekly() async {
     data.addAll({
+      'id': _selectedWo?.id,
+      'id_ptfi': _selectedWo?.idPtfi,
       'wo_number': _selectedWo?.woNumber,
       'dev_action': _actionController.text,
       'man_hours': _hoursController.text,
       'progress': _progressController.text,
-      'activity': _activityController.text
+      'activity': _activityController.text,
+      'date_submit': DateFormat('yyyy/MM/dd').format(DateTime.now()),
     });
     var response = await WeeklyServices.updateWeekly(data);
     return response;

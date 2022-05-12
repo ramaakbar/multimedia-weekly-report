@@ -203,13 +203,13 @@ class RequestorDropdown extends StatelessWidget {
           showSearchBox: true,
           // showSelectedItem: true,
 
-          onChanged: <String>(String value) {
-            newWo.setSelectedRequestor(value.toString());
+          onChanged: (value) {
+            newWo.setSelectedRequestor(value!.idPtfi.toString());
           },
           dropdownBuilder: (context, selectedItem, test) =>
               Text(selectedItem?.username ?? 'Select Requestor'),
           popupItemBuilder: (context, item, isSelected) =>
-              ListTile(title: Text(item.username)),
+              ListTile(title: Text(item.idPtfi + ' - ' + item.username)),
           onFind: (text) async {
             var url = Uri.parse(
                 'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_karyawan.php');

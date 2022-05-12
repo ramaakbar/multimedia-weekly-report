@@ -38,7 +38,7 @@ class ReportList extends StatelessWidget {
           trailing: PopupMenuButton(itemBuilder: (context) {
             return [
               PopupMenuItem(
-                child: Text('Edit'),
+                child: Text('Update'),
                 value: 'Edit',
               ),
               PopupMenuItem(
@@ -89,7 +89,6 @@ class updateDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // make text field controller
-
     return Consumer(builder: (
       context,
       ReportViewModel report,

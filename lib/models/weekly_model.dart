@@ -35,6 +35,7 @@ class WeeklyModel {
 
 class Datum {
   Datum({
+    this.id,
     this.workArea,
     this.woNumber,
     this.projectName,
@@ -50,7 +51,7 @@ class Datum {
     this.businessUnit,
     this.requestor,
   });
-
+  String? id;
   String? workArea;
   String? woNumber;
   String? projectName;
@@ -67,6 +68,7 @@ class Datum {
   String? requestor;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["id"] == null ? null : json["id"],
         workArea: json["work_area"] == null ? null : json["work_area"],
         woNumber: json["wo_number"] == null ? null : json["wo_number"],
         projectName: json["project_name"] == null ? null : json["project_name"],
@@ -91,6 +93,7 @@ class Datum {
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
         "work_area": workArea == null ? null : workArea,
         "wo_number": woNumber == null ? null : woNumber,
         "project_name": projectName == null ? null : projectName,

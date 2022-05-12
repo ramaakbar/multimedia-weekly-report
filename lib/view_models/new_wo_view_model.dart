@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weekly_report/models/validation_item.dart';
@@ -6,9 +8,12 @@ import 'package:weekly_report/models/karyawan_model.dart' as karyawan;
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/repo/weekly_services.dart';
 import 'package:weekly_report/models/weekly_model.dart' as wm;
+import 'package:http/http.dart' as http;
+import 'package:weekly_report/view_models/weekly_view_model.dart';
 
 class NewWoViewModel extends ChangeNotifier {
   ValidationItem _woNumber = ValidationItem('', '');
+
   // DateTimeRange _dateRange = DateTimeRange(
   //     start: DateTime.now(), end: DateTime.now().add(Duration(days: 7)));
   DateTime _startDate = DateTime.now();
@@ -18,6 +23,7 @@ class NewWoViewModel extends ChangeNotifier {
   String? _selectedBusinessUnit;
   String? _selectedCrew;
   String? _selectedRequestor;
+  int? _otomatisWo;
   // ValidationItem _requestorName = ValidationItem('', '');
   ValidationItem _projectName = ValidationItem('', '');
   final _woController = TextEditingController();
@@ -37,6 +43,7 @@ class NewWoViewModel extends ChangeNotifier {
     getCrewList();
     getBusinessList();
     getRequestorList();
+    getOtomatisWo();
   }
 
   void reset() {
@@ -46,6 +53,7 @@ class NewWoViewModel extends ChangeNotifier {
     getCrewList();
     getBusinessList();
     getRequestorList();
+    getOtomatisWo();
   }
 
   //geters
@@ -59,6 +67,7 @@ class NewWoViewModel extends ChangeNotifier {
   String? get selectedBusinessUnit => _selectedBusinessUnit;
   String? get selectedCrew => _selectedCrew;
   get woController => _woController;
+  int? get otomatisWo => _otomatisWo;
 
   // set wo number text field to the latest wo number
   void setController(wm.Datum wo) {
@@ -66,9 +75,13 @@ class NewWoViewModel extends ChangeNotifier {
     // _woController.text = wo.woNumber!.split('/')[0] +
     //     '/' +
     //     (int.parse(wo.woNumber!.split('/')[1]) + 1).toString();
-    _woController.text = (int.parse(wo.woNumber!) + 1).toString();
+    _woController.text = otomatisWo.toString();
 
     _woNumber = ValidationItem(_woController.text, '');
+  }
+
+  void setOtomatisWo(int? wo) {
+    _otomatisWo = wo;
   }
 
   void setSelectedRequestor(final String item) {
@@ -129,6 +142,18 @@ class NewWoViewModel extends ChangeNotifier {
   bool reqSearch(String value) {
     return _requestorList.any((element) =>
         element.username.toLowerCase().contains(value.toLowerCase()));
+  }
+
+  void getOtomatisWo() async {
+    var response = await http.get(Uri.parse(
+        'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/get_otomatisWo.php'));
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      var test = int.parse(jsonResponse['data'][0]["maxID"]) + 1;
+      setOtomatisWo(test);
+      notifyListeners();
+    }
   }
 
   getWorkAreaList() async {
@@ -219,10 +244,28 @@ class NewWoViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateOtomatisWo() async {
+    var url = Uri.parse(
+        'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/update_otomatisWo.php');
+    Map<String, String> dataOtomatisWo = {
+      'wo_number': otomatisWo.toString(),
+    };
+
+    var body = json.encode(dataOtomatisWo);
+
+    var response2 = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
+  }
+
   submitData() {
     if (isValid) {
       data.addAll({
-        'wo_number': _woNumber.value,
+        'wo_number': otomatisWo,
         'start_date': DateFormat('yyyy/MM/dd').format(_startDate),
         'end_date': DateFormat('yyyy/MM/dd').format(_endDate),
         'requestor_name': _selectedRequestor,
@@ -232,19 +275,20 @@ class NewWoViewModel extends ChangeNotifier {
         'assigned': selectedCrew,
         "progress": 0,
         "id_ptfi": selectedCrew,
-        "activity": null,
-        "dev_action": null,
-        "man_hours": null,
-        'date_submit': DateFormat('yyyy/MM/dd').format(DateTime.now()),
       });
       // print(data);
       var response = WeeklyServices.postWeekly(data);
+
+      updateOtomatisWo();
+
       _startDate = DateTime.now();
       _endDate = DateTime.now();
       _selectedRequestor = null;
       _selectedWorkArea = null;
       _selectedCrew = null;
       _selectedBusinessUnit = null;
+
+      notifyListeners();
       return true;
     } else {
       // _woNumber = ValidationItem(woNumber.value, 'WO Number must be filled');

@@ -15,7 +15,7 @@ class ReportScreen extends StatelessWidget {
     report.getCrewList();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Report'),
+        title: Text('Update Report'),
         actions: [
           RefreshIcon(),
           AddIcon(),
