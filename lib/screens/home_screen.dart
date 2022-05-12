@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WeeklyViewModel weeklyViewModel = context.watch<WeeklyViewModel>();
-    NewWoViewModel newWo = context.watch<NewWoViewModel>();
+
     // newWo.reset();
 
     return Scaffold(

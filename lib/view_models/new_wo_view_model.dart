@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -44,6 +45,7 @@ class NewWoViewModel extends ChangeNotifier {
     getBusinessList();
     getRequestorList();
     getOtomatisWo();
+    test();
   }
 
   void reset() {
@@ -82,6 +84,7 @@ class NewWoViewModel extends ChangeNotifier {
 
   void setOtomatisWo(int? wo) {
     _otomatisWo = wo;
+    _woController.text = wo.toString();
   }
 
   void setSelectedRequestor(final String item) {
@@ -142,6 +145,12 @@ class NewWoViewModel extends ChangeNotifier {
   bool reqSearch(String value) {
     return _requestorList.any((element) =>
         element.username.toLowerCase().contains(value.toLowerCase()));
+  }
+
+  test() {
+    Timer.periodic(Duration(seconds: 1), (t) {
+      getOtomatisWo();
+    });
   }
 
   void getOtomatisWo() async {
@@ -263,6 +272,7 @@ class NewWoViewModel extends ChangeNotifier {
   }
 
   submitData() {
+    getOtomatisWo();
     if (isValid) {
       data.addAll({
         'wo_number': otomatisWo,
