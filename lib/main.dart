@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weekly_report/screens/auth_screen.dart';
 import 'package:weekly_report/screens/template.dart';
 import 'package:weekly_report/view_models/archive_view_model.dart';
+import 'package:weekly_report/view_models/auth.dart';
 import 'package:weekly_report/view_models/bottom_nav_view_model.dart';
 import 'package:weekly_report/view_models/new_wo_view_model.dart';
 import 'package:weekly_report/view_models/report_view_model.dart';
@@ -44,11 +46,30 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ViewCategoryViewModel()),
         ChangeNotifierProvider(create: (_) => ViewBusinessunitViewModel()),
         ChangeNotifierProvider(create: (_) => ViewCrewViewModel()),
+        ChangeNotifierProvider(create: (_) => Auth()),
       ],
-      child: MaterialApp(
-        title: 'Weekly Report',
-        theme: lightScheme,
-        home: Template(),
+      child: Consumer<Auth>(
+        builder: ((context, auth, child) => MaterialApp(
+              title: 'Weekly Report',
+              theme: lightScheme,
+              home: auth.isAuth
+                  ? Template()
+                  : FutureBuilder(
+                      future: auth.autoLogin(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Scaffold(
+                            body: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        } else {
+                          return LoginScreen();
+                        }
+                      },
+                    ),
+            )),
       ),
     );
   }
