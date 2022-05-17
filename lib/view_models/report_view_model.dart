@@ -167,7 +167,8 @@ class ReportViewModel extends ChangeNotifier {
       'id': _selectedWo?.id,
       'id_ptfi': selectedCrew,
       'wo_number': _selectedWo?.woNumber,
-      'dev_action': _actionController.text,
+      'dev_action':
+          int.parse(_progressController.text) < 100 ? 'Continue' : 'Done',
       'man_hours': _hoursController.text,
       'progress': _progressController.text,
       'activity': _activityController.text,
