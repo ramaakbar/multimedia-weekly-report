@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:weekly_report/models/report_weekly_model.dart';
 
@@ -15,6 +16,14 @@ class ViewWeeklyDatatableSource extends DataGridSource {
             DataGridCell(
               value: i++,
               columnName: 'No',
+            ),
+            DataGridCell(
+              value: data.name,
+              columnName: 'assign',
+            ),
+            DataGridCell(
+              value: data.dateSubmit,
+              columnName: 'submitDate',
             ),
             DataGridCell(
               value: data.businessUnit,
@@ -38,11 +47,7 @@ class ViewWeeklyDatatableSource extends DataGridSource {
               value: data.progress == null ? null : '${data.progress} %',
               columnName: 'Progress',
             ),
-            // DataGridCell(
-            //   value:
-            //       DateFormat('MM/dd/yyyy').format(data.dateSubmit as DateTime),
-            //   columnName: 'submitOn',
-            // ),
+
             // DataGridCell(
             //   value: data.manHours,
             //   columnName: 'mHrs',
@@ -58,10 +63,6 @@ class ViewWeeklyDatatableSource extends DataGridSource {
             // DataGridCell(
             //   value: data.workArea,
             //   columnName: 'Work Area',
-            // ),
-            // DataGridCell(
-            //   value: data.name,
-            //   columnName: 'crew',
             // ),
           ]),
         )

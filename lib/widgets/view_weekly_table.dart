@@ -114,6 +114,20 @@ class ViewWeeklyTable extends StatelessWidget {
               child: buildLabel('No')),
         ),
         GridColumn(
+          columnName: 'assign',
+          label: Container(
+              padding: EdgeInsets.all(5),
+              alignment: Alignment.centerLeft,
+              child: buildLabel('Crew')),
+        ),
+        GridColumn(
+          columnName: 'submitDate',
+          label: Container(
+              padding: EdgeInsets.all(5),
+              alignment: Alignment.centerLeft,
+              child: buildLabel('Submit Date')),
+        ),
+        GridColumn(
           columnName: 'Business Unit',
           label: Container(
               padding: EdgeInsets.all(5),
@@ -149,13 +163,7 @@ class ViewWeeklyTable extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: buildLabel('Progress')),
         ),
-        // GridColumn(
-        //   columnName: 'submitOn',
-        //   label: Container(
-        //       padding: EdgeInsets.all(5),
-        //       alignment: Alignment.centerLeft,
-        //       child: buildLabel('Submit on')),
-        // ),
+
         // GridColumn(
         //   columnName: 'mHrs',
         //   label: Container(
@@ -183,13 +191,6 @@ class ViewWeeklyTable extends StatelessWidget {
         //       padding: EdgeInsets.all(5),
         //       alignment: Alignment.centerLeft,
         //       child: buildLabel('Work Area')),
-        // ),
-        // GridColumn(
-        //   columnName: 'crew',
-        //   label: Container(
-        //       padding: EdgeInsets.all(5),
-        //       alignment: Alignment.centerLeft,
-        //       child: buildLabel('Crew')),
         // ),
       ];
 

@@ -32,17 +32,20 @@ class ReportWeeklyModel {
 }
 
 class Datum {
-  Datum({
-    this.businessUnit,
-    this.projectName,
-    this.progress,
-    this.devAction,
-  });
+  Datum(
+      {this.businessUnit,
+      this.projectName,
+      this.progress,
+      this.devAction,
+      this.dateSubmit,
+      this.name});
 
   String? businessUnit;
   String? projectName;
   String? progress;
   String? devAction;
+  String? dateSubmit;
+  String? name;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         businessUnit:
@@ -50,6 +53,8 @@ class Datum {
         projectName: json["project_name"] == null ? null : json["project_name"],
         progress: json["progress"] == null ? null : json["progress"],
         devAction: json["dev_action"] == null ? null : json["dev_action"],
+        dateSubmit: json["date_submit"] == null ? null : json["date_submit"],
+        name: json["name"] == null ? null : json["name"],
       );
 
   Map<String, dynamic> toJson() => {
