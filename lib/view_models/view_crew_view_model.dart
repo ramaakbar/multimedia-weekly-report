@@ -15,7 +15,7 @@ class ViewCrewViewModel extends ChangeNotifier {
   List<Datum> _crewListModel = [];
   DateTime _date = DateTime.now().subtract(Duration(days: 7));
   DateTimeRange _dateRange = DateTimeRange(
-      start: DateTime(DateTime.now().year, 1, 5),
+      start: DateTime(DateTime.now().year, 1, 6),
       end: DateTime(DateTime.now().year, 1, 5).add(Duration(days: 7)));
   int sum = 0;
   List<ChartModel> _chartData = [];

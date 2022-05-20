@@ -53,6 +53,8 @@ class ViewWeeklyModel extends ChangeNotifier {
     viewWeeklyDataSource = ViewWeeklyDatatableSource(
         data: weeklyListModel
             .where((element) =>
+                element.dateSubmit!.toString().contains(value) ||
+                element.name!.toLowerCase().contains(value.toLowerCase()) ||
                 element.businessUnit!.toLowerCase().contains(value) ||
                 element.projectName!.toLowerCase().contains(value) ||
                 element.progress!.toLowerCase().contains(value) ||
