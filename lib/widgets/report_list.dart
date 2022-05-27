@@ -42,6 +42,10 @@ class ReportList extends StatelessWidget {
                 value: 'Edit',
               ),
               PopupMenuItem(
+                child: Text('Change'),
+                value: 'Change',
+              ),
+              PopupMenuItem(
                 child: Text('Delete', style: TextStyle(color: Colors.red)),
                 value: 'Delete',
               ),
@@ -53,6 +57,12 @@ class ReportList extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) => Center(
                       child: SingleChildScrollView(child: updateDialog())));
+            } else if (value == 'Change') {
+              report.setSelectedWo(report.weeklyListModel[index]);
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => Center(
+                      child: SingleChildScrollView(child: changeDialog())));
             } else {
               showDialog(
                   context: context,
@@ -146,6 +156,49 @@ class updateDialog extends StatelessWidget {
             child: Text('Update'),
             onPressed: () {
               report.updateWeekly();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    });
+  }
+}
+
+class changeDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // make text field controller
+    return Consumer(builder: (
+      context,
+      ReportViewModel report,
+      child,
+    ) {
+      return AlertDialog(
+        title: Text('Change WO'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+                controller: report.projectNameController,
+                maxLines: 6,
+                decoration: InputDecoration(
+                  labelText: 'Project Name',
+                  border: OutlineInputBorder(),
+                )),
+          ],
+        ),
+        actions: [
+          TextButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text('Change'),
+            onPressed: () {
+              report.changeProject();
               Navigator.of(context).pop();
             },
           ),

@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weekly_report/models/weekly_error.dart';
 import 'package:weekly_report/repo/api_status.dart';
 import 'package:weekly_report/repo/weekly_services.dart';
 import 'package:weekly_report/models/crewReport_model.dart' as cr;
+import 'package:http/http.dart' as http;
 
 class ReportViewModel extends ChangeNotifier {
   String? _selectedCrew = null;
@@ -21,6 +24,7 @@ class ReportViewModel extends ChangeNotifier {
   final _hoursController = TextEditingController();
   final _progressController = TextEditingController();
   final _activityController = TextEditingController();
+  final _projectNameController = TextEditingController();
 
   // DateTimeRange get dateRange => _dateRange;
   DateTime get startDate => _startDate;
@@ -35,6 +39,7 @@ class ReportViewModel extends ChangeNotifier {
   get hoursController => _hoursController;
   get progressController => _progressController;
   get activityController => _activityController;
+  get projectNameController => _projectNameController;
 
   ReportViewModel() {
     getCrewList();
@@ -49,6 +54,7 @@ class ReportViewModel extends ChangeNotifier {
     // _actionController.text = wo.devAction?.toString() ?? 'null';
     // _hoursController.text = wo.manHours.toString();
     _progressController.text = wo.progress.toString();
+    _projectNameController.text = wo.projectName.toString();
     // _activityController.text = wo.activity?.toString() ?? 'null';
     notifyListeners();
   }
@@ -180,5 +186,27 @@ class ReportViewModel extends ChangeNotifier {
     _activityController.text = '';
     getWeeklyList();
     return response;
+  }
+
+  void changeProject() async {
+    var url = Uri.parse(
+        'https://ptfi-lms.fmi.com/db/tessap/weekly_api/api/update_changeProject.php');
+    Map dataProject = {
+      'id': _selectedWo?.id,
+      'project_name': _projectNameController.text,
+    };
+
+    var body = json.encode(dataProject);
+    // print(body);
+
+    var request = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
+    getWeeklyList();
+    // notifyListeners();
   }
 }
